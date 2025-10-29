@@ -16,8 +16,8 @@ CREATE TABLE reportedPhoneNumbers {
   id serial PRIMARY KEY,
   phone_number TEXT UNIQUE NOT NULL,
   report_count INTEGER DEFAULT 1,
-  reporter_id INTEGER,
-  FOREIGN KEY (reporter_id) REFERENCES users(id)
+  user_id INTEGER,
+  FOREIGN KEY (user_id) REFERENCES users(id)
 }
 
 CREATE TABLE reportedLinks {
@@ -25,14 +25,16 @@ CREATE TABLE reportedLinks {
   link TEXT UNIQUE NOT NULL,
   report_count INTEGER DEFAULT 1,
   last_reported TIMESTAMP DEFAULT now(),
-  reporter_id INTEGER,
-  FOREIGN KEY (reporter_id) REFERENCES users(id)
+  user_id INTEGER,
+  FOREIGN KEY (user_id) REFERENCES users(id)
 }
 
 CREATE TABLE tests {
   id serial PRIMARY KEY,
+  user_id INTEGER, 
   type TEXT NOT NULL,
   suspect_details TEXT NOT NULL,
   result INTEGER NOT NULL,
   created_at TIMESTAMP DEFAULT now()
+  FOREIGN KEY (user_id) REFERENCES users(id)
 }
