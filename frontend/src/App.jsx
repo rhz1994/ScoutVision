@@ -5,7 +5,7 @@ function App() {
   // const [tests, setTests] = useState(null);
 
   useEffect(() => {
-    fetch("/api/userTests/1")
+    fetch("/api/users")
       .then((responese) => responese.json())
       .then((result) => console.log(result));
   }, []);
