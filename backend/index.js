@@ -17,12 +17,17 @@ app.use(express.urlencoded({ extended: true }));
 
 port = 3000;
 
+app.get("/api/users", async (req, res) => {
+  const { rows } = await client.query("SELECT * FROM users;");
+  res.send(rows);
+});
+
 app.get("/api/userTests/:id", async (req, res) => {
   const { id } = req.params;
   const { rows } = await client.query(
     `SELECT * FROM tests WHERE user_id = ${id};`
   );
-  res.send(id);
+  res.send(rows);
 });
 
 app.post("/api/post", (req, res) => {
