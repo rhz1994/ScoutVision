@@ -5,39 +5,51 @@ DROP TABLE IF EXISTS tests CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
 
-CREATE TABLE users {
+CREATE TABLE users (
   id serial PRIMARY KEY,
   username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
   created_at TIMESTAMP DEFAULT now()
-}
+);
 
-CREATE TABLE reportedPhoneNumbers {
+CREATE TABLE reportedPhoneNumbers (
   id serial PRIMARY KEY,
   phone_number TEXT UNIQUE NOT NULL,
   report_count INTEGER DEFAULT 1,
   freetext TEXT,
   user_id INTEGER,
   FOREIGN KEY (user_id) REFERENCES users(id)
-}
+);
 
-CREATE TABLE reportedLinks {
+CREATE TABLE reportedLinks (
   id serial PRIMARY KEY,
   link TEXT UNIQUE NOT NULL,
   report_count INTEGER DEFAULT 1,
   last_reported TIMESTAMP DEFAULT now(),
-    freetext TEXT,
-
+  freetext TEXT,
   user_id INTEGER,
   FOREIGN KEY (user_id) REFERENCES users(id)
-}
+);
 
-CREATE TABLE tests {
+CREATE TABLE tests (
   id serial PRIMARY KEY,
-  user_id INTEGER, 
+  user_id INTEGER,
   type TEXT NOT NULL,
   suspect_details TEXT NOT NULL,
   result INTEGER NOT NULL,
-  created_at TIMESTAMP DEFAULT now()
+  created_at TIMESTAMP DEFAULT now(),
   FOREIGN KEY (user_id) REFERENCES users(id)
-}
+);
+
+INSERT INTO users (username, password) VALUES ('Jane Doe', 'password'), ('Adam Pålsson', '1234'), ('Hugo Larsson', 'secret');
+
+INSERT INTO reportedPhoneNumbers (phone_number, freetext) VALUES ('077-8137813', 'Använde kivra');
+
+INSERT INTO reportedLinks (link, freetext) VALUES ('www.scam.com', 'internetbedrägeri');
+
+INSERT INTO tests (user_id, type, suspect_details, result) VALUES ( 1, 'sms', '077-8137813', 13);
+
+SELECT * FROM users;
+SELECT * FROM reportedPhoneNumbers;
+SELECT * FROM reportedLinks;
+SELECT * FROM tests;
