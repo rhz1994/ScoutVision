@@ -16,6 +16,7 @@ CREATE TABLE reportedPhoneNumbers {
   id serial PRIMARY KEY,
   phone_number TEXT UNIQUE NOT NULL,
   report_count INTEGER DEFAULT 1,
+  freetext TEXT,
   reporter_id INTEGER,
   FOREIGN KEY (reporter_id) REFERENCES users(id)
 }
@@ -25,6 +26,8 @@ CREATE TABLE reportedLinks {
   link TEXT UNIQUE NOT NULL,
   report_count INTEGER DEFAULT 1,
   last_reported TIMESTAMP DEFAULT now(),
+    freetext TEXT,
+
   reporter_id INTEGER,
   FOREIGN KEY (reporter_id) REFERENCES users(id)
 }
