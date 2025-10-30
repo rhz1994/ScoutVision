@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Login from "../components/Login";
 
 // import logo from "../assets/book-svgrepo-com(1).svg";
 
@@ -23,6 +24,7 @@ function Navbar() {
           </Link>
         </ul>
       </nav>
+      <Login></Login>
     </header>
   );
 }
