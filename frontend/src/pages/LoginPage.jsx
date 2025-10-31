@@ -1,11 +1,33 @@
-import Login from "../components/Login";
-import "./LoginPage.css";
+import { useContext, useState, useEffect } from "react";
+import { UserContext } from "../contexts/UserContext";
 import { Link, useNavigate } from "react-router-dom";
+import MuiButton from "@mui/material/Button";
+
+import "./LoginPage.css";
 
 function LoginPage() {
-  // const handleLogin = () => {
+  const { setIsLoggedIn } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  // }
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    fetch("/api/users")
+      .then((responese) => responese.json())
+      .then((users) => {
+        const user = users.find(
+          (u) => u.username === username && u.password === password
+        );
+        if (user) {
+          setIsLoggedIn(true);
+          navigate("/profile");
+        } else {
+          alert("Fel användarnamn eller lösenord");
+        }
+      });
+  };
 
   return (
     <div className="login-page">
@@ -18,6 +40,8 @@ function LoginPage() {
             id="username"
             name="username"
             placeholder="Användarnamn"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
           />
         </label>
         <label htmlFor="password">
@@ -27,12 +51,16 @@ function LoginPage() {
             id="password"
             name="password"
             placeholder="Lösenord"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
           />
         </label>
-        {/* <button onClick={handleLogin}>Logga in</button> */}
+        <MuiButton variant="contained" type="submit" onClick={handleLogin}>
+          Logga in
+        </MuiButton>
       </form>
       <Link className="Navbar-link" to="/register">
-        Skapa konto
+        Inte medlem? Skapa konto istället.
       </Link>
     </div>
   );

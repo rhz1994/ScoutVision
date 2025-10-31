@@ -1,10 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
-import Login from "../components/Login";
-import "./Navbar.css";
-import Logo from "./Logo";
-
 import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Login from "./Login";
+import Logo from "./Logo";
 import { UserContext } from "../contexts/UserContext";
+
+import "./Navbar.css";
 
 function Navbar() {
   const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
