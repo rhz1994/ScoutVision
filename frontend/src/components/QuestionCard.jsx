@@ -5,7 +5,11 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
+
 function QuestionCard(props) {
+  const questions = props.questions;
+
+  console.log(questions);
   return (
     <Card variant="outlined">
       <CardContent>

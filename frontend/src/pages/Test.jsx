@@ -9,7 +9,7 @@ function Test() {
       <Button>Telefon</Button>
       <Button>Länk</Button>
 
-      <QuestionCard label="First Question" />
+      <QuestionCard question={question} label="First Question" />
       <QuestionCard label="Second Question" />
       <QuestionCard label="Third Question" />
       <QuestionCard label="Fourth Question" />
