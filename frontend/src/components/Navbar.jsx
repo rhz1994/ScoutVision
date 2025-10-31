@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import Login from "../components/Login";
-import logo from "../assets/owl-svgrepo-com.svg";
 import "./Navbar.css";
+import Logo from "./Logo";
 
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
@@ -20,7 +20,7 @@ function Navbar() {
     <header>
       <nav className="Navbar-nav">
         <Link className="Navbar-link-logo" to="/">
-          <img className="Navbar-logo" src={logo} alt="logo" />
+          <Logo className="Navbar-logo" />
         </Link>
 
         <ul className="Navbar-ul">
@@ -45,7 +45,9 @@ function Navbar() {
                 <button onClick={handleLogout}>Logga ut</button>
               </>
             ) : (
-              <Login />
+              <Link className="Navbar-link" to="/login">
+                <Login />
+              </Link>
             )}
           </li>
         </ul>
