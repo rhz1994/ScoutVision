@@ -9,7 +9,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 function QuestionCard(props) {
   const questions = props.questions;
 
-  console.log(questions);
+  console.log(props.question.username);
   return (
     <Card variant="outlined">
       <CardContent>
@@ -20,7 +20,11 @@ function QuestionCard(props) {
             defaultValue="1"
             name="radio-buttons-group"
           >
-            <FormControlLabel value="1" control={<Radio />} label="1" />
+            <FormControlLabel
+              value="1"
+              control={<Radio />}
+              label={props.question.username}
+            />
             <FormControlLabel value="2" control={<Radio />} label="2" />
             <FormControlLabel value="3" control={<Radio />} label="3" />
           </RadioGroup>
