@@ -1,30 +1,54 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Login from "../components/Login";
+import logo from "../assets/owl-svgrepo-com.svg";
 
-// import logo from "../assets/book-svgrepo-com(1).svg";
+import { useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 function Navbar() {
+  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    navigate("/");
+  };
+
+  console.log("isLoggedIn:", isLoggedIn);
   return (
     <header>
       <nav className="Navbar-nav">
-        {/* <Link className="Navbar-link-logo" to="/">
+        <Link className="Navbar-link-logo" to="/">
           <img className="Navbar-logo" src={logo} alt="logo" />
-        </Link> */}
+        </Link>
+
         <ul className="Navbar-ul">
-          <Link className="Navbar-link" to="/">
-            <li className="Navbar-li">Hem</li>
-          </Link>
+          <li className="Navbar-li">
+            <Link className="Navbar-link" to="/">
+              Hem
+            </Link>
+          </li>
 
-          <Link className="Navbar-link" to="/test">
-            <li className="Navbar-li">Test </li>
-          </Link>
+          <li className="Navbar-li">
+            <Link className="Navbar-link" to="/test">
+              Test
+            </Link>
+          </li>
 
-          <Link className="Navbar-link" to="/profile">
-            <li className="Navbar-li">Profil</li>
-          </Link>
+          <li className="Navbar-li">
+            {isLoggedIn ? (
+              <>
+                <Link className="Navbar-link" to="/profile">
+                  Profil
+                </Link>
+                <button onClick={handleLogout}>Logga ut</button>
+              </>
+            ) : (
+              <Login />
+            )}
+          </li>
         </ul>
       </nav>
-      <Login></Login>
     </header>
   );
 }

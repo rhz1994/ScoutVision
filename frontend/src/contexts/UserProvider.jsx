@@ -1,8 +1,14 @@
 import { UserContext } from "./UserContext";
-// import { useState } from "react";
+import { useState } from "react";
 
 function UserContextProvider({ children }) {
-  return <UserContext.Provider value={null}>{children}</UserContext.Provider>;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  return (
+    <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+      {children}
+    </UserContext.Provider>
+  );
 }
 
 export default UserContextProvider;
