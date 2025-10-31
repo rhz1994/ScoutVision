@@ -5,28 +5,37 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
+import { useState } from "react";
 
 function QuestionCard(props) {
-  const questions = props.questions;
+  console.log(props.question);
+  console.log(props.answeralternative);
+  const [value, setValue] = useState(1);
 
-  console.log(props.question.username);
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
   return (
     <Card variant="outlined">
       <CardContent>
         <FormControl>
-          <FormLabel id="radio-buttons-group-label">{props.label}</FormLabel>
+          <FormLabel id="radio-buttons-group-label">{props.question}</FormLabel>
+
           <RadioGroup
             aria-labelledby="radio-buttons-group-label"
             defaultValue="1"
+            value={value}
             name="radio-buttons-group"
           >
-            <FormControlLabel
-              value="1"
-              control={<Radio />}
-              label={props.question.username}
-            />
-            <FormControlLabel value="2" control={<Radio />} label="2" />
-            <FormControlLabel value="3" control={<Radio />} label="3" />
+            {props.answeralternative.map((item) => (
+              <FormControlLabel
+                labelPlacement="start"
+                value={item[1]}
+                control={<Radio onChange={handleChange} />}
+                label={item[0]}
+              />
+            ))}
           </RadioGroup>
         </FormControl>
       </CardContent>

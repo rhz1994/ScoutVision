@@ -1,7 +1,8 @@
 DROP TABLE IF EXISTS user_reports CASCADE;
 DROP TABLE IF EXISTS reportedlinks CASCADE;
 DROP TABLE IF EXISTS reportedphonenumbers CASCADE;
-DROP TABLE IF EXISTS tests CASCADE;
+DROP TABLE IF EXISTS testResults CASCADE;
+DROP TABLE IF EXISTS testQuestions CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
 
@@ -31,10 +32,22 @@ CREATE TABLE reportedLinks (
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE tests (
+CREATE TABLE testQuestions (
+  id serial PRIMARY KEY,
+  question TEXT NOT NULL,
+  answerAlternative TEXT[][]
+);
+
+INSERT INTO testQuestions(question, answerAlternative) 
+VALUES
+('Fråga 1', '{{SMS, SMS},{Telefon, Telefon}, {Länk, Länk}}'),
+('Fråga 2', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
+('Fråga 3', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
+('Fråga 4', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}');
+
+CREATE TABLE testResults (
   id serial PRIMARY KEY,
   user_id INTEGER,
-  type TEXT NOT NULL,
   suspect_details TEXT NOT NULL,
   result INTEGER NOT NULL,
   created_at TIMESTAMP DEFAULT now(),
@@ -47,9 +60,10 @@ INSERT INTO reportedPhoneNumbers (phone_number, freetext) VALUES ('077-8137813',
 
 INSERT INTO reportedLinks (link, freetext) VALUES ('www.scam.com', 'internetbedrägeri');
 
-INSERT INTO tests (user_id, type, suspect_details, result) VALUES ( 1, 'sms', '077-8137813', 13);
+INSERT INTO testResults (user_id, suspect_details, result) VALUES ( 1, '077-8137813', 13);
 
 SELECT * FROM users;
 SELECT * FROM reportedPhoneNumbers;
 SELECT * FROM reportedLinks;
-SELECT * FROM tests;
+SELECT * FROM testResults;
+SELECT * FROM testQuestions;
