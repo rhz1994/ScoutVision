@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Test.css";
 import QuestionCard from "../components/QuestionCard";
-import Button from "../components/Button";
 import CheckboxCard from "../components/CheckboxCard";
 
 function Test() {
@@ -27,11 +26,6 @@ function Test() {
             answeralternative={testQuestion.answeralternative}
           />
         ))}
-
-      {/* <QuestionCard label="Second Question" />
-      <QuestionCard label="Third Question" />
-      <QuestionCard label="Fourth Question" />
-      <QuestionCard label="Fifth Question" /> */}
     </div>
   );
 }

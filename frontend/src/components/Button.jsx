@@ -1,8 +1,8 @@
 import MuiButton from "@mui/material/Button";
 
-function Button({ children }) {
+function Button({ children, size, color }) {
   return (
-    <MuiButton variant="contained" size="large" color="primary">
+    <MuiButton variant="contained" size={size} color={color}>
       {children}
     </MuiButton>
   );

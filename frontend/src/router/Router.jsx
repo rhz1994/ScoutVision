@@ -23,7 +23,7 @@ function Router() {
         <>
           <Navbar />
 
-          <main className="App-main">
+          <main className="app-main">
             <Outlet />
           </main>
 

@@ -3,3 +3,11 @@
   flex-direction: column;
   min-height: 100vh;
 }
+
+.primary-color {
+  background-color: #0477ce;
+}
+
+.secondary-color {
+  color: #fff;
+}
