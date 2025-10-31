@@ -1,48 +1,32 @@
-:root {
-  line-height: 1.5;
-  font-weight: 400;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-body {
-  margin: 0;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-/* Navbar */
-/* .Navbar-nav {
+.Navbar-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: white;
   padding: 1em 0em;
   width: 100vw;
-} */
+}
 
-/* .Navbar-logo {
+.Navbar-logo {
   width: 60px;
   height: 60px;
   cursor: pointer;
   margin-left: 2em;
   transition: 1s;
-} */
+}
 
-/* .Navbar-logo:hover {
+.Navbar-logo:hover {
   transform: scale(1.1);
-} */
-/* 
+}
+
 .Navbar-ul {
   display: flex;
   gap: 2em;
   list-style: none;
   margin-right: 2em;
-} */
+}
 
-/* .Navbar-link {
+.Navbar-link {
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
@@ -52,8 +36,8 @@ h1 {
 .Navbar-link:hover {
   color: #555;
   border-bottom: 1px solid;
-} */
+}
 
-/* .login-button {
+.login-button {
   color: red;
-} */
+}

@@ -3,6 +3,8 @@ import Home from "../pages/Home";
 import Test from "../pages/Test";
 import Profile from "../pages/Profile";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import "./Router.css";
 
 function Router() {
   const router = createHashRouter([
@@ -19,6 +21,8 @@ function Router() {
           <main className="App-main">
             <Outlet />
           </main>
+
+          <Footer />
         </>
       ),
     },

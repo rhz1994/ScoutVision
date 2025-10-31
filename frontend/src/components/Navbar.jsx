@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import Login from "../components/Login";
 import logo from "../assets/owl-svgrepo-com.svg";
+import "./Navbar.css";
 
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
