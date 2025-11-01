@@ -2,33 +2,19 @@ import SafetyCheckIcon from "@mui/icons-material/SafetyCheck";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
+import "./Hero.css";
+
 function Hero() {
   function handleClick() {}
   return (
-    <section
-      className="primary-color"
-      style={{
-        flexGrow: 1,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "350px",
-        gap: 40,
-      }}
-    >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 4fr",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-          width: "800px",
-          // border: "3px solid white",
-        }}
-      >
-        <SafetyCheckIcon color="secondary" sx={{ fontSize: 100 }} />
-        <p className="secondary-color" style={{ fontSize: "24px" }}>
+    <section className="primary-color hero-section">
+      <div className="hero-div">
+        <SafetyCheckIcon
+          className="hero-child"
+          color="secondary"
+          sx={{ fontSize: 100 }}
+        />
+        <p className="secondary-color hero-child" style={{ fontSize: "24px" }}>
           <span style={{ fontWeight: 700 }}>Trygghetskollen</span> hjälper dig
           att undvika eventuella bedrägeriförsök och ger tips på hur du kan
           skydda dig.
