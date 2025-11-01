@@ -27,7 +27,7 @@ app.get("/api/testQuestions", async (req, res) => {
   res.send(rows);
 });
 
-app.get("/api/userTests/:id", async (req, res) => {
+app.get("/api/testResults/:id", async (req, res) => {
   const { id } = req.params;
   const { rows } = await client.query(
     `SELECT * FROM tests WHERE user_id = ${id};`
