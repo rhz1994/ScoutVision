@@ -8,8 +8,6 @@ import RadioGroup from "@mui/material/RadioGroup";
 import { useState } from "react";
 
 function QuestionCard(props) {
-  console.log(props.question);
-  console.log(props.answeralternative);
   const [value, setValue] = useState(1);
 
   const handleChange = (event) => {
@@ -30,6 +28,7 @@ function QuestionCard(props) {
           >
             {props.answeralternative.map((item) => (
               <FormControlLabel
+                key={item.id}
                 labelPlacement="start"
                 value={item[1]}
                 control={<Radio onChange={handleChange} />}

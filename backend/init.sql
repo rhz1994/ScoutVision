@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS reportedphonenumbers CASCADE;
 DROP TABLE IF EXISTS testResults CASCADE;
 DROP TABLE IF EXISTS testQuestions CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS answers CASCADE;
 
 
 CREATE TABLE users (
@@ -40,7 +41,7 @@ CREATE TABLE testQuestions (
 
 INSERT INTO testQuestions(question, answerAlternative) 
 VALUES
-('Fråga 1', '{{SMS, SMS},{Telefon, Telefon}, {Länk, Länk}}'),
+('Fråga 1', '{{SMS, 1},{Telefon, 2}, {Länk, 3}}'),
 ('Fråga 2', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
 ('Fråga 3', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
 ('Fråga 4', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}');
@@ -53,6 +54,15 @@ CREATE TABLE testResults (
   created_at TIMESTAMP DEFAULT now(),
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+CREATE TABLE answers (
+  id serial PRIMARY KEY,
+  user_id INTEGER,
+  question TEXT NOT NULL,
+  answers TEXT[] NOT NULL
+);
+
+INSERT INTO answers (user_id, question, answers) VALUES ( 1, 'Fråga', '{{SMS, Telefon, Länk}}');
 
 INSERT INTO users (username, password) VALUES ('Jane Doe', 'password'), ('Adam Pålsson', '1234'), ('Hugo Larsson', 'secret');
 
@@ -67,3 +77,4 @@ SELECT * FROM reportedPhoneNumbers;
 SELECT * FROM reportedLinks;
 SELECT * FROM testResults;
 SELECT * FROM testQuestions;
+SELECT * FROM answers;
