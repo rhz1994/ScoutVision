@@ -3,10 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import Logo from "./Logo";
 import { UserContext } from "../contexts/UserContext";
+import { useLocation, useParams } from "react-router-dom";
 
 import "./Navbar.css";
 
 function Navbar() {
+  const { pathname } = useLocation();
+  const { question } = useParams();
+
   const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -22,6 +26,8 @@ function Navbar() {
         <Link className="Navbar-link-logo" to="/">
           <Logo className="Navbar-logo" />
         </Link>
+        <span>{pathname}</span>
+        <span>{question}</span>
 
         <ul className="Navbar-ul">
           <li className="Navbar-li">
@@ -31,7 +37,7 @@ function Navbar() {
           </li>
 
           <li className="Navbar-li">
-            <Link className="Navbar-link" to="/test">
+            <Link className="Navbar-link" to="/test/question=1">
               Test
             </Link>
           </li>

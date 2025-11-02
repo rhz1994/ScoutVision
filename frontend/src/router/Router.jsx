@@ -14,7 +14,7 @@ function Router() {
     {
       children: [
         { element: <Home />, path: "/" },
-        { element: <Test />, path: "/test" },
+        { element: <Test />, path: "/test/:question" },
         { element: <Profile />, path: "/profile" },
         { element: <LoginPage />, path: "login" },
         { element: <Register />, path: "register" },

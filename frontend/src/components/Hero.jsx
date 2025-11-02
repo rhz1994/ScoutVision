@@ -1,11 +1,12 @@
 import SafetyCheckIcon from "@mui/icons-material/SafetyCheck";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./Hero.css";
 
 function Hero() {
-  function handleClick() {}
+  const navigate = useNavigate();
+
   return (
     <section className="primary-color hero-section">
       <div className="hero-div">
@@ -20,21 +21,20 @@ function Hero() {
           skydda dig.
         </p>
       </div>
-      <Link to="/test">
-        <Button
-          onClick={handleClick}
-          variant="contained"
-          color="contrast"
-          size="large"
-          sx={{
-            ":hover": { bgcolor: "contrast.light" },
-            fontWeight: 600,
-            padding: "20px",
-          }}
-        >
-          Starta testet
-        </Button>
-      </Link>
+
+      <Button
+        onClick={() => navigate("/test/question=1")}
+        variant="contained"
+        color="contrast"
+        size="large"
+        sx={{
+          ":hover": { bgcolor: "contrast.light" },
+          fontWeight: 600,
+          padding: "20px",
+        }}
+      >
+        Starta testet
+      </Button>
     </section>
   );
 }

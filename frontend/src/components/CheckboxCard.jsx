@@ -8,8 +8,10 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { useState } from "react";
 import Button from "@mui/material/Button";
+import { Link, useNavigate } from "react-router-dom";
 
 function CheckboxCard(props) {
+  const navigate = useNavigate();
   const answerAlternatives = props.answeralternative.map((item) => item[0]);
   const [state, setState] = useState(answerAlternatives);
   const [answers, setAnswers] = useState([]);
@@ -31,17 +33,19 @@ function CheckboxCard(props) {
   };
   function handleClick() {
     console.log(answers);
-    const result = { question: props.question, answers: answers };
-    console.log(result);
-    fetch("/api/post/3", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(result),
-    })
-      .then((response) => response.json())
-      .then((result) => console.log(result));
+
+    // const result = { question: props.question, answers: answers };
+    // console.log(result);
+    // fetch("/api/post/3", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(result),
+    // })
+    //   .then((response) => response.json())
+    //   .then((result) => console.log(result));
+    navigate("/test/question=2");
   }
   return (
     <Card variant="outlined">
@@ -60,6 +64,7 @@ function CheckboxCard(props) {
               />
             ))}
           </FormGroup>
+
           <Button
             onClick={handleClick}
             variant="contained"
