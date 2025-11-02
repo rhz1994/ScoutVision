@@ -8,10 +8,11 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { useState } from "react";
 import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function CheckboxCard(props) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const answerAlternatives = props.answeralternative.map((item) => item[0]);
   const [state, setState] = useState(answerAlternatives);
   const [answers, setAnswers] = useState([]);
@@ -31,6 +32,8 @@ function CheckboxCard(props) {
       setAnswers([...answers, event.target.value]);
     }
   };
+
+  const questionNumber = parseInt(pathname.split("=")[1]) + 1;
   function handleClick() {
     console.log(answers);
 
@@ -45,7 +48,11 @@ function CheckboxCard(props) {
     // })
     //   .then((response) => response.json())
     //   .then((result) => console.log(result));
-    navigate("/test/question=2");
+    navigate(
+      questionNumber < 6
+        ? `/test/question=${questionNumber}`
+        : `/test/question=1`
+    );
   }
   return (
     <Card variant="outlined">

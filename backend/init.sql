@@ -1,3 +1,4 @@
+
 DROP TABLE IF EXISTS user_reports CASCADE;
 DROP TABLE IF EXISTS reportedlinks CASCADE;
 DROP TABLE IF EXISTS reportedphonenumbers CASCADE;
@@ -39,13 +40,6 @@ CREATE TABLE testQuestions (
   answerAlternative TEXT[][]
 );
 
-INSERT INTO testQuestions(question, answerAlternative) 
-VALUES
-('Fråga 1', '{{SMS, 1},{Telefon, 2}, {Länk, 3}}'),
-('Fråga 2', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
-('Fråga 3', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
-('Fråga 4', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}');
-
 CREATE TABLE testResults (
   id serial PRIMARY KEY,
   user_id INTEGER,
@@ -61,6 +55,14 @@ CREATE TABLE answers (
   question TEXT NOT NULL,
   answers TEXT[] NOT NULL
 );
+
+INSERT INTO testQuestions(question, answerAlternative) 
+VALUES
+('Fråga 1', '{{SMS, 1},{Telefon, 2}, {Länk, 3}}'),
+('Fråga 2', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
+('Fråga 3', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
+('Fråga 4', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
+('Fråga 5', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}');
 
 INSERT INTO answers (user_id, question, answers) VALUES ( 1, 'Fråga', '{{SMS, Telefon, Länk}}');
 

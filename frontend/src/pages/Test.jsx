@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import "./Test.css";
 import QuestionCard from "../components/QuestionCard";
 import CheckboxCard from "../components/CheckboxCard";
@@ -7,31 +6,29 @@ import PaginationItem from "@mui/material/PaginationItem";
 import Stack from "@mui/material/Stack";
 
 import { useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 function Test() {
-  const [testQuestions, setTestQuestions] = useState(null);
+  const { data } = useQuery({
+    queryKey: ["todos"],
+    queryFn: () => fetch("/api/testQuestions").then((r) => r.json()),
+  });
+
+  console.log(data);
 
   const { pathname } = useLocation();
-
-  useEffect(() => {
-    const questionNumber = pathname.split("=")[1] - 1;
-    console.log(questionNumber);
-    fetch("/api/testQuestions")
-      .then((responese) => responese.json())
-      .then((result) => {
-        return setTestQuestions(result[questionNumber]);
-      });
-  }, [pathname]);
+  const questionNumber = pathname.split("=")[1] - 1;
 
   return (
     <div id="test-container">
       <Stack>
         <Pagination count={5} />
       </Stack>
-      {testQuestions && (
+      {data && (
         <CheckboxCard
-          question={testQuestions.question}
-          answeralternative={testQuestions.answeralternative}
+          key={data[questionNumber].id}
+          question={data[questionNumber].question}
+          answeralternative={data[questionNumber].answeralternative}
         />
       )}
 
