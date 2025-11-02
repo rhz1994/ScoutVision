@@ -11,10 +11,9 @@ import { useQuery } from "@tanstack/react-query";
 function Test() {
   const { data } = useQuery({
     queryKey: ["todos"],
+    staleTime: 1000 * 60 * 30,
     queryFn: () => fetch("/api/testQuestions").then((r) => r.json()),
   });
-
-  console.log(data);
 
   const { pathname } = useLocation();
   const questionNumber = pathname.split("=")[1] - 1;
