@@ -27,6 +27,11 @@ app.get("/api/testQuestions", async (req, res) => {
   res.send(rows);
 });
 
+app.get("/api/testQuestions2", async (req, res) => {
+  const { rows } = await client.query("SELECT * FROM testQuestions2");
+  res.send(rows);
+});
+
 app.get("/api/testResults/:id", async (req, res) => {
   const { id } = req.params;
   const { rows } = await client.query(

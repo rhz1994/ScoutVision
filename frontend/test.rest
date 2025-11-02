@@ -1,0 +1,16 @@
+###
+GET http://localhost:5173/api/testQuestions
+
+###
+
+GET http://localhost:5173/api/testQuestions2
+
+###
+
+GET http://localhost:5173/api/users
+
+###
+
+GET http://localhost:5173/api/testResults/1
+
+###

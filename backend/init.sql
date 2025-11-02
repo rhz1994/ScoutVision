@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS reportedlinks CASCADE;
 DROP TABLE IF EXISTS reportedphonenumbers CASCADE;
 DROP TABLE IF EXISTS testResults CASCADE;
 DROP TABLE IF EXISTS testQuestions CASCADE;
+DROP TABLE IF EXISTS testQuestions2 CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS answers CASCADE;
 
@@ -39,6 +40,10 @@ CREATE TABLE testQuestions (
   question TEXT NOT NULL,
   answerAlternative TEXT[][]
 );
+CREATE TABLE testQuestions2 (
+  id serial PRIMARY KEY,
+  question TEXT NOT NULL,
+);
 
 CREATE TABLE testResults (
   id serial PRIMARY KEY,
@@ -64,6 +69,14 @@ VALUES
 ('Fråga 4', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
 ('Fråga 5', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}');
 
+INSERT INTO testQuestions2(question) 
+VALUES
+('Innehöll meddelandet en länk som du uppmanades att klicka på?'),
+('Bad meddelandet dig att logga in, lämna personuppgifter eller uppge kortinformation?'),
+('Kom meddelandet oväntat eller från någon du inte känner?'),
+('Stod det att något brådskande skulle hända om du inte agerade direkt (t.ex. att ditt konto skulle spärras eller ett paket skulle gå förlorat)?'),
+('Verkade avsändarens nummer eller e-postadress konstig (t.ex. felstavad, ovanlig domän eller ett vanligt mobilnummer istället för en officiell kontakt)?');
+
 INSERT INTO answers (user_id, question, answers) VALUES ( 1, 'Fråga', '{{SMS, Telefon, Länk}}');
 
 INSERT INTO users (username, password) VALUES ('Jane Doe', 'password'), ('Adam Pålsson', '1234'), ('Hugo Larsson', 'secret');
@@ -79,4 +92,5 @@ SELECT * FROM reportedPhoneNumbers;
 SELECT * FROM reportedLinks;
 SELECT * FROM testResults;
 SELECT * FROM testQuestions;
+SELECT * FROM testQuestions2;
 SELECT * FROM answers;

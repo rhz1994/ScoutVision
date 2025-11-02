@@ -13,24 +13,23 @@ import { useNavigate, useLocation } from "react-router-dom";
 function CheckboxCard(props) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const answerAlternatives = props.answeralternative.map((item) => item[0]);
-  const [state, setState] = useState(answerAlternatives);
-  const [answers, setAnswers] = useState([]);
+  const [answers, setAnswers] = useState();
+  const [checked, setChecked] = useState(null);
 
   const handleChange = (event, value) => {
-    setState({
-      ...state,
-      [event.target.name]: event.target.checked,
-    });
-    if (!value) {
-      const updatedArray = answers.filter(
-        (item) => item !== event.target.value
-      );
-      setAnswers(updatedArray);
-    }
-    if (value) {
-      setAnswers([...answers, event.target.value]);
-    }
+    console.log(event.target.value);
+    setChecked(event.target.name);
+    setAnswers(event.target.value);
+
+    // if (!value) {
+    //   const updatedArray = answers.filter(
+    //     (item) => item !== event.target.value
+    //   );
+    //   setAnswers(updatedArray);
+    // }
+    // if (value) {
+    //   setAnswers([...answers, event.target.value]);
+    // }
   };
 
   const questionNumber = parseInt(pathname.split("=")[1]) + 1;
@@ -63,11 +62,16 @@ function CheckboxCard(props) {
             {props.answeralternative.map((item) => (
               <FormControlLabel
                 key={item.id}
-                control={<Checkbox checked={item.id} name={item.id} />}
+                control={
+                  <Checkbox
+                    checked={checked === item.answer ? true : false}
+                    name={item.answer}
+                  />
+                }
                 labelPlacement="start"
                 onChange={handleChange}
-                label={item[0]}
-                value={item[1]}
+                label={item.answer}
+                value={item.value}
               />
             ))}
           </FormGroup>
