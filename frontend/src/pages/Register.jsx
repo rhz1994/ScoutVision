@@ -102,7 +102,13 @@ function RegisterPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <MuiButton variant="contained" type="submit" disabled={!acceptTerms}>
+        <MuiButton
+          variant="contained"
+          type="submit"
+          disabled={
+            !acceptTerms || username.length === 0 || password.length === 0
+          }
+        >
           Skapa konto
         </MuiButton>
       </form>
@@ -111,7 +117,8 @@ function RegisterPage() {
         <Typography variant="body2" sx={{ mt: 1, mb: 1 }}>
           Jag godkänner att mina uppgifter behandlas enligt
           <MuiLink
-            href="/terms-and-conditions"
+            component={Link}
+            to="/terms-and-conditions"
             target="_blank"
             rel="noopener"
             sx={{ ml: 0.5 }}
@@ -127,7 +134,7 @@ function RegisterPage() {
 
       <Typography variant="body2" sx={{ mt: 1, mb: 2 }}>
         Redan medlem?
-        <MuiLink href="/login" target="_blank" rel="noopener" sx={{ ml: 0.5 }}>
+        <MuiLink component={Link} to="/login" sx={{ ml: 0.5 }}>
           Logga in här istället.
         </MuiLink>
       </Typography>

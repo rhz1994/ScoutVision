@@ -86,20 +86,21 @@ function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <MuiButton variant="contained" type="submit">
+        <MuiButton
+          variant="contained"
+          type="submit"
+          disabled={username.length === 0 || password.length === 0}
+        >
           Logga in
         </MuiButton>
       </form>
 
-      <MuiLink
-        style={{ margin: "2em" }}
-        component={Link}
-        className="link"
-        to="/register"
-      >
-        Inte medlem? Skapa konto här istället.
-      </MuiLink>
-
+      <Typography variant="body2" sx={{ mt: 1, mb: 2 }}>
+        Inte medlem?
+        <MuiLink component={Link} to="/register" sx={{ ml: 0.5 }}>
+          Skapa konto här istället.
+        </MuiLink>
+      </Typography>
       <Snackbar
         open={snackbar.open}
         autoHideDuration={3000}
