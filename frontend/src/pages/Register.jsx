@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
 import MuiButton from "@mui/material/Button";
@@ -8,6 +7,8 @@ import MuiLink from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 import "./Register.css";
 
@@ -20,6 +21,7 @@ function RegisterPage() {
     message: "",
     severity: "info",
   });
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
   const handleRegister = (event) => {
     event.preventDefault();
@@ -28,6 +30,15 @@ function RegisterPage() {
       setSnackbar({
         open: true,
         message: "Fyll i både användarnamn och lösenord",
+        severity: "error",
+      });
+      return;
+    }
+
+    if (!acceptTerms) {
+      setSnackbar({
+        open: true,
+        message: "Du måste godkänna villkoren för att fortsätta",
         severity: "error",
       });
       return;
@@ -63,6 +74,7 @@ function RegisterPage() {
         console.error(error);
       });
   };
+
   const handleCloseSnackbar = () => {
     setSnackbar({ ...snackbar, open: false });
   };
@@ -90,19 +102,36 @@ function RegisterPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <MuiButton variant="contained" type="submit">
+        <MuiButton variant="contained" type="submit" disabled={!acceptTerms}>
           Skapa konto
         </MuiButton>
-      </form> <div "skipToLoginContainer">
-      <p> Redan medlem?</p>
-      <MuiLink
-        style={{ margin: "2em" }}
-        component={Link}
-        className="link"
-        to="/login"
-      >
-        Logga in här istället.
-      </MuiLink> </div>
+      </form>
+
+      <div className="termsRow">
+        <Typography variant="body2" sx={{ mt: 1, mb: 1 }}>
+          Jag godkänner att mina uppgifter behandlas enligt
+          <MuiLink
+            href="/terms-and-conditions"
+            target="_blank"
+            rel="noopener"
+            sx={{ ml: 0.5 }}
+          >
+            integritetspolicyn.
+          </MuiLink>
+        </Typography>
+        <Checkbox
+          checked={acceptTerms}
+          onChange={(e) => setAcceptTerms(e.target.checked)}
+        />
+      </div>
+
+      <Typography variant="body2" sx={{ mt: 1, mb: 2 }}>
+        Redan medlem?
+        <MuiLink href="/login" target="_blank" rel="noopener" sx={{ ml: 0.5 }}>
+          Logga in här istället.
+        </MuiLink>
+      </Typography>
+
       <Snackbar
         open={snackbar.open}
         autoHideDuration={3000}

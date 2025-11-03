@@ -15,12 +15,9 @@
   min-width: 40vw;
 }
 
-label {
+.termsRow {
   display: flex;
-  flex-direction: column;
-}
-
-.link {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
 }
