@@ -16,20 +16,10 @@ function CheckboxCard(props) {
   const [answers, setAnswers] = useState();
   const [checked, setChecked] = useState(null);
 
-  const handleChange = (event, value) => {
+  const handleChange = (event) => {
     console.log(event.target.value);
     setChecked(event.target.name);
     setAnswers(event.target.value);
-
-    // if (!value) {
-    //   const updatedArray = answers.filter(
-    //     (item) => item !== event.target.value
-    //   );
-    //   setAnswers(updatedArray);
-    // }
-    // if (value) {
-    //   setAnswers([...answers, event.target.value]);
-    // }
   };
 
   const questionNumber = parseInt(pathname.split("=")[1]) + 1;

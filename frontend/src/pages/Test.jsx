@@ -4,18 +4,23 @@ import CheckboxCard from "../components/CheckboxCard";
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 import Stack from "@mui/material/Stack";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import { useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 function Test() {
-  const { data } = useQuery({
+  const { pathname } = useLocation();
+  const { data, isPending, error } = useQuery({
     queryKey: ["questions"],
     staleTime: 1000 * 60 * 30,
     queryFn: () => fetch("/api/testQuestions2").then((r) => r.json()),
   });
 
-  const { pathname } = useLocation();
+  if (isPending) return <CircularProgress />;
+
+  if (error) return <span>Något när frågorna hämtades.</span>;
+
   const questionNumber = pathname.split("=")[1] - 1;
 
   const answeralternative = [
