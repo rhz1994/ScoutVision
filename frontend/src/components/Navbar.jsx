@@ -19,7 +19,7 @@ function Navbar() {
     navigate("/");
   };
 
-  console.log("isLoggedIn:", isLoggedIn);
+  // console.log("isLoggedIn:", isLoggedIn);
   return (
     <header>
       <nav className="Navbar-nav">
@@ -39,6 +39,12 @@ function Navbar() {
           <li className="Navbar-li">
             <Link className="Navbar-link" to="/test/question=1">
               Test
+            </Link>
+          </li>
+
+          <li className="Navbar-li">
+            <Link className="Navbar-link" to="/result">
+              Resultat
             </Link>
           </li>
 
