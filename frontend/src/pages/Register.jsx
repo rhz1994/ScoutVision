@@ -93,16 +93,16 @@ function RegisterPage() {
         <MuiButton variant="contained" type="submit">
           Skapa konto
         </MuiButton>
-      </form>
+      </form> <div "skipToLoginContainer">
+      <p> Redan medlem?</p>
       <MuiLink
         style={{ margin: "2em" }}
         component={Link}
         className="link"
         to="/login"
       >
-        Redan medlem? Logga in här istället.
-      </MuiLink>
-
+        Logga in här istället.
+      </MuiLink> </div>
       <Snackbar
         open={snackbar.open}
         autoHideDuration={3000}
