@@ -3,13 +3,16 @@
   flex-direction: column;
   align-items: center;
   margin-top: 3rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-#registerForm {
+#register-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 1rem;
+  min-width: 40vw;
 }
 
 label {
@@ -17,13 +20,7 @@ label {
   flex-direction: column;
 }
 
-button {
-  border: none;
-  background-color: #0477ce;
-  color: white;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0477ce;
+.link {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }

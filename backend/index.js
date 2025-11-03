@@ -30,12 +30,33 @@ app.get("/api/userTests/:id", async (req, res) => {
   res.send(rows);
 });
 
-app.post("/api/post", (req, res) => {
-  const body = req.body;
+// Lägga till nya användarkonton
+app.post("/api/users", async (req, res) => {
+  const { username, password } = req.body;
 
-  console.log(body);
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json({ message: "Fyll i både användarnamn och lösenord" });
+  }
 
-  res.send();
+  const { rows } = await client.query(
+    `SELECT * FROM users where username = $1`,
+    [username]
+  );
+  if (rows.length > 0) {
+    return res.status(409).json({ message: "Användarnamn finns redan" });
+  }
+  try {
+    await client.query(
+      `INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *`,
+      [username, password]
+    );
+    res.status(201).json({ message: "Användare skapad!" });
+  } catch (error) {
+    console.error(err);
+    res.status(500).json({ message: "Något gick fel" });
+  }
 });
 
 app.put("api/update/:id", (req, res) => {
