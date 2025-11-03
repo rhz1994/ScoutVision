@@ -13,7 +13,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 function CheckboxCard(props) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [answers, setAnswers] = useState();
+  const [answers, setAnswers] = useState(null);
   const [checked, setChecked] = useState(null);
 
   const handleChange = (event) => {
@@ -23,6 +23,7 @@ function CheckboxCard(props) {
   };
 
   const questionNumber = parseInt(pathname.split("=")[1]) + 1;
+
   function handleClick() {
     console.log(answers);
 
@@ -68,6 +69,7 @@ function CheckboxCard(props) {
 
           <Button
             onClick={handleClick}
+            disabled={!answers}
             variant="contained"
             color="contrast"
             size="medium"

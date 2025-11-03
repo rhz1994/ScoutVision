@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 function Test() {
+  console.log("Nu renderas Test");
   const { pathname } = useLocation();
   const { data, isPending, error } = useQuery({
     queryKey: ["questions"],
