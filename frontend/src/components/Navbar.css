@@ -14,10 +14,6 @@
   transition: 1s;
 }
 
-.Navbar-logo:hover {
-  transform: scale(1.1);
-}
-
 .Navbar-ul {
   display: flex;
   gap: 2em;

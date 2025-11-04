@@ -3,27 +3,21 @@
   flex-direction: column;
   align-items: center;
   margin-top: 3rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-#registerForm {
+#register-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 1rem;
+  min-width: 40vw;
 }
 
-label {
+.termsRow {
   display: flex;
-  flex-direction: column;
-}
-
-button {
-  border: none;
-  background-color: #0477ce;
-  color: white;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0477ce;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
 }

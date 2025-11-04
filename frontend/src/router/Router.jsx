@@ -5,6 +5,7 @@ import Profile from "../pages/Profile";
 import LoginPage from "../pages/LoginPage";
 import Register from "../pages/Register";
 import Result from "../pages/Result";
+import TermsAndConditions from "../pages/TermsAndConditions";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -20,6 +21,9 @@ function Router() {
         { element: <LoginPage />, path: "/login" },
         { element: <Register />, path: "/register" },
         { element: <Result />, path: "/result" },
+        { element: <LoginPage />, path: "login" },
+        { element: <Register />, path: "register" },
+        { element: <TermsAndConditions />, path: "terms-and-conditions" },
       ],
       element: (
         <>
