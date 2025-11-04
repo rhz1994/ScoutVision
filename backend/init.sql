@@ -1,10 +1,8 @@
-
 DROP TABLE IF EXISTS user_reports CASCADE;
 DROP TABLE IF EXISTS reportedlinks CASCADE;
 DROP TABLE IF EXISTS reportedphonenumbers CASCADE;
 DROP TABLE IF EXISTS testResults CASCADE;
-DROP TABLE IF EXISTS testQuestions CASCADE;
-DROP TABLE IF EXISTS testQuestions2 CASCADE;
+DROP TABLE IF EXISTS testQuestion CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS answers CASCADE;
 
@@ -35,12 +33,7 @@ CREATE TABLE reportedLinks (
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE testQuestions (
-  id serial PRIMARY KEY,
-  question TEXT NOT NULL,
-  answerAlternative TEXT[][]
-);
-CREATE TABLE testQuestions2 (
+CREATE TABLE testQuestion (
   id serial PRIMARY KEY,
   question TEXT NOT NULL
 );
@@ -48,7 +41,7 @@ CREATE TABLE testQuestions2 (
 CREATE TABLE testResults (
   id serial PRIMARY KEY,
   user_id INTEGER,
-  suspect_details TEXT NOT NULL,
+  suspect_details TEXT,
   result INTEGER NOT NULL,
   created_at TIMESTAMP DEFAULT now(),
   FOREIGN KEY (user_id) REFERENCES users(id)
@@ -61,15 +54,7 @@ CREATE TABLE answers (
   answers TEXT[] NOT NULL
 );
 
-INSERT INTO testQuestions(question, answerAlternative)
-VALUES
-('Fråga 1', '{{SMS, 1},{Telefon, 2}, {Länk, 3}}'),
-('Fråga 2', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
-('Fråga 3', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
-('Fråga 4', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
-('Fråga 5', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}');
-
-INSERT INTO testQuestions2(question)
+INSERT INTO testQuestion(question)
 VALUES
 ('Innehöll meddelandet en länk som du uppmanades att klicka på?'),
 ('Bad meddelandet dig att logga in, lämna personuppgifter eller uppge kortinformation?'),
@@ -91,6 +76,5 @@ SELECT * FROM users;
 SELECT * FROM reportedPhoneNumbers;
 SELECT * FROM reportedLinks;
 SELECT * FROM testResults;
-SELECT * FROM testQuestions;
-SELECT * FROM testQuestions2;
+SELECT * FROM testQuestion;
 SELECT * FROM answers;
