@@ -10,16 +10,17 @@ import "./Navbar.css";
 function Navbar() {
   const { pathname } = useLocation();
   const { question } = useParams();
-
   const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     navigate("/");
+    setUser(null);
   };
 
-  // console.log("isLoggedIn:", isLoggedIn);
   return (
     <header>
       <nav className="Navbar-nav">

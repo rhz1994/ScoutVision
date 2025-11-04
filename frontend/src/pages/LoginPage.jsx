@@ -4,15 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import MuiLink from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
-
 import MuiButton from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-
 import "./LoginPage.css";
 
 function LoginPage() {
   const { setIsLoggedIn } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -34,6 +34,12 @@ function LoginPage() {
         );
 
         if (user) {
+          setUser({
+            username: user.username,
+            password: user.password,
+            id: user.id,
+          });
+          console.log(user);
           setIsLoggedIn(true);
           setSnackbar({
             open: true,
