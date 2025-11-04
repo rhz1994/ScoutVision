@@ -4,6 +4,7 @@ import Test from "../pages/Test";
 import Profile from "../pages/Profile";
 import LoginPage from "../pages/LoginPage";
 import Register from "../pages/Register";
+import Result from "../pages/Result";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -14,16 +15,17 @@ function Router() {
     {
       children: [
         { element: <Home />, path: "/" },
-        { element: <Test />, path: "/test" },
+        { element: <Test />, path: "/test/:question" },
         { element: <Profile />, path: "/profile" },
-        { element: <LoginPage />, path: "login" },
-        { element: <Register />, path: "register" },
+        { element: <LoginPage />, path: "/login" },
+        { element: <Register />, path: "/register" },
+        { element: <Result />, path: "/result" },
       ],
       element: (
         <>
           <Navbar />
 
-          <main className="App-main">
+          <main className="app-main">
             <Outlet />
           </main>
 

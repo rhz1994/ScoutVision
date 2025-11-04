@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 import MuiButton from "@mui/material/Button";
@@ -15,7 +15,7 @@ function LoginPage() {
   const handleLogin = (event) => {
     event.preventDefault();
     fetch("/api/users")
-      .then((responese) => responese.json())
+      .then((response) => response.json())
       .then((users) => {
         const user = users.find(
           (u) => u.username === username && u.password === password

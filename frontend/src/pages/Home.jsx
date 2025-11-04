@@ -3,7 +3,8 @@ import Hero from "../components/Hero";
 function Home() {
   return (
     <>
-      Home <Hero></Hero>
+      <Hero />
+      <section></section>
     </>
   );
 }

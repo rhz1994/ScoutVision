@@ -1,8 +1,12 @@
+
 DROP TABLE IF EXISTS user_reports CASCADE;
 DROP TABLE IF EXISTS reportedlinks CASCADE;
 DROP TABLE IF EXISTS reportedphonenumbers CASCADE;
-DROP TABLE IF EXISTS tests CASCADE;
+DROP TABLE IF EXISTS testResults CASCADE;
+DROP TABLE IF EXISTS testQuestions CASCADE;
+DROP TABLE IF EXISTS testQuestions2 CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS answers CASCADE;
 
 
 CREATE TABLE users (
@@ -31,15 +35,49 @@ CREATE TABLE reportedLinks (
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE tests (
+CREATE TABLE testQuestions (
+  id serial PRIMARY KEY,
+  question TEXT NOT NULL,
+  answerAlternative TEXT[][]
+);
+CREATE TABLE testQuestions2 (
+  id serial PRIMARY KEY,
+  question TEXT NOT NULL,
+);
+
+CREATE TABLE testResults (
   id serial PRIMARY KEY,
   user_id INTEGER,
-  type TEXT NOT NULL,
   suspect_details TEXT NOT NULL,
   result INTEGER NOT NULL,
   created_at TIMESTAMP DEFAULT now(),
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+CREATE TABLE answers (
+  id serial PRIMARY KEY,
+  user_id INTEGER,
+  question TEXT NOT NULL,
+  answers TEXT[] NOT NULL
+);
+
+INSERT INTO testQuestions(question, answerAlternative) 
+VALUES
+('Fråga 1', '{{SMS, 1},{Telefon, 2}, {Länk, 3}}'),
+('Fråga 2', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
+('Fråga 3', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
+('Fråga 4', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
+('Fråga 5', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}');
+
+INSERT INTO testQuestions2(question) 
+VALUES
+('Innehöll meddelandet en länk som du uppmanades att klicka på?'),
+('Bad meddelandet dig att logga in, lämna personuppgifter eller uppge kortinformation?'),
+('Kom meddelandet oväntat eller från någon du inte känner?'),
+('Stod det att något brådskande skulle hända om du inte agerade direkt (t.ex. att ditt konto skulle spärras eller ett paket skulle gå förlorat)?'),
+('Verkade avsändarens nummer eller e-postadress konstig (t.ex. felstavad, ovanlig domän eller ett vanligt mobilnummer istället för en officiell kontakt)?');
+
+INSERT INTO answers (user_id, question, answers) VALUES ( 1, 'Fråga', '{{SMS, Telefon, Länk}}');
 
 INSERT INTO users (username, password) VALUES ('Jane Doe', 'password'), ('Adam Pålsson', '1234'), ('Hugo Larsson', 'secret');
 
@@ -47,9 +85,12 @@ INSERT INTO reportedPhoneNumbers (phone_number, freetext) VALUES ('077-8137813',
 
 INSERT INTO reportedLinks (link, freetext) VALUES ('www.scam.com', 'internetbedrägeri');
 
-INSERT INTO tests (user_id, type, suspect_details, result) VALUES ( 1, 'sms', '077-8137813', 13);
+INSERT INTO testResults (user_id, suspect_details, result) VALUES ( 1, '077-8137813', 13);
 
 SELECT * FROM users;
 SELECT * FROM reportedPhoneNumbers;
 SELECT * FROM reportedLinks;
-SELECT * FROM tests;
+SELECT * FROM testResults;
+SELECT * FROM testQuestions;
+SELECT * FROM testQuestions2;
+SELECT * FROM answers;

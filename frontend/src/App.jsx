@@ -1,22 +1,26 @@
-import { useEffect } from "react";
 import Router from "./router/Router";
 import "./App.css";
 import UserContextProvider from "./contexts/UserProvider";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./layout";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ResultProvider from "./contexts/ResultProvider";
+
+const queryClient = new QueryClient();
 
 function App() {
-  // const [tests, setTests] = useState(null);
-
-  useEffect(() => {
-    fetch("/api/users")
-      .then((responese) => responese.json())
-      .then((result) => console.log(result));
-  }, []);
-
   return (
     <>
-      <UserContextProvider>
-        <Router />
-      </UserContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <UserContextProvider>
+            <ResultProvider>
+              <Router />
+            </ResultProvider>
+          </UserContextProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
     </>
   );
 }

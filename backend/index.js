@@ -22,20 +22,36 @@ app.get("/api/users", async (req, res) => {
   res.send(rows);
 });
 
-app.get("/api/userTests/:id", async (req, res) => {
+app.get("/api/testQuestions", async (req, res) => {
+  const { rows } = await client.query("SELECT * FROM testQuestions;");
+  res.send(rows);
+});
+
+app.get("/api/testQuestions2", async (req, res) => {
+  const { rows } = await client.query("SELECT * FROM testQuestions2");
+  res.send(rows);
+});
+
+app.get("/api/testResults/:id", async (req, res) => {
   const { id } = req.params;
   const { rows } = await client.query(
-    `SELECT * FROM tests WHERE user_id = ${id};`
+    `SELECT * FROM testResults WHERE user_id = ${id};`
   );
   res.send(rows);
 });
 
-app.post("/api/post", (req, res) => {
-  const body = req.body;
+app.post("/api/post/:id", async (req, res) => {
+  console.log(req.body);
+  console.log(req.params);
+  const { question, answers } = req.body;
+  const { id } = req.params;
 
-  console.log(body);
+  const { rows } = await client.query(
+    `INSERT INTO answers (user_id, question, answers) VALUES ($1, $2, $3) RETURNING *`,
+    [id, question, answers]
+  );
 
-  res.send();
+  res.send(rows);
 });
 
 app.put("api/update/:id", (req, res) => {
