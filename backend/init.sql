@@ -42,7 +42,7 @@ CREATE TABLE testQuestions (
 );
 CREATE TABLE testQuestions2 (
   id serial PRIMARY KEY,
-  question TEXT NOT NULL,
+  question TEXT NOT NULL
 );
 
 CREATE TABLE testResults (
@@ -61,7 +61,7 @@ CREATE TABLE answers (
   answers TEXT[] NOT NULL
 );
 
-INSERT INTO testQuestions(question, answerAlternative) 
+INSERT INTO testQuestions(question, answerAlternative)
 VALUES
 ('Fråga 1', '{{SMS, 1},{Telefon, 2}, {Länk, 3}}'),
 ('Fråga 2', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
@@ -69,7 +69,7 @@ VALUES
 ('Fråga 4', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}'),
 ('Fråga 5', '{{Svarsalternativ 1, 1},{Svarsalternativ 2, 2}}');
 
-INSERT INTO testQuestions2(question) 
+INSERT INTO testQuestions2(question)
 VALUES
 ('Innehöll meddelandet en länk som du uppmanades att klicka på?'),
 ('Bad meddelandet dig att logga in, lämna personuppgifter eller uppge kortinformation?'),
