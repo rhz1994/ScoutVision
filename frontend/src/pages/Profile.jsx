@@ -8,17 +8,74 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 function Profile() {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const [username, setUsername] = useState(user ? user.username : "user");
+  const [editedUsername, setEditedUsername] = useState(false);
+
+  const editUsername = (event) => {
+    setEditedUsername(true);
+
+    event.preventDefault;
+    setUsername(username);
+
+    console.log(username);
+  };
 
   return (
     <>
-      <h1>Hej, {user.username}</h1>;
-      <Card id="userInfoContainer">
-        <CardContent>Användarinfo</CardContent>
-      </Card>
-      <Card id="savedResults">
-        <CardContent>Tidigare test</CardContent>
-      </Card>
+      <h1>Hej, {user ? user.username : "user"}</h1>;
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          gap: 2,
+          justifyContent: "center",
+        }}
+      >
+        <Card sx={{ padding: 5, mb: 4 }}>
+          <CardContent
+            sx={{
+              gap: 3,
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Typography variant="h5" component="div">
+              Personliga uppgifter
+            </Typography>
+            <form onSubmit={editUsername}>
+              <TextField
+                required
+                disabled={editedUsername}
+                label={"Användarnamn"}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              ></TextField>
+              <Button variant="contained" type="submit">
+                Byt användarnamn
+              </Button>
+            </form>
+            <TextField
+              type="password"
+              required
+              label={"Lösenord"}
+              defaultValue={user ? user.password : "lösenord"}
+            ></TextField>{" "}
+            <Button>Byt lösenord</Button>
+          </CardContent>
+        </Card>
+        <Card sx={{ padding: 5, mb: 4 }}>
+          <CardContent sx={{ height: "100%" }}>
+            <Typography variant="h5" component="div">
+              Sparade tester
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Test1, Test2
+            </Typography>
+          </CardContent>
+        </Card>
+      </Box>
     </>
   );
 }
