@@ -10,6 +10,7 @@ import { useState, useContext } from "react";
 import Button from "@mui/material/Button";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ResultContext } from "../contexts/ResultContext";
+import { UserContext } from "../contexts/UserContext";
 
 function CheckboxCard(props) {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ function CheckboxCard(props) {
   const [checked, setChecked] = useState(null);
   const { result, setResult } = useContext(ResultContext);
   const [value, setValue] = useState(0);
+  const { user } = useContext(UserContext);
 
   const handleChange = (event) => {
     checked === event.target.name
@@ -30,22 +32,32 @@ function CheckboxCard(props) {
 
   function handleClick() {
     // setResult(result + parseInt(value));
-    setResult(result + parseInt(value));
+    const testScore = result + parseInt(value);
+    setResult(testScore);
 
-    // const result = { question: props.question, answers: answers };
-    // console.log(result);
-    // fetch("/api/post/3", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(result),
-    // })
-    //   .then((response) => response.json())
-    //   .then((result) => console.log(result));
-    navigate(
-      questionNumber < 6 ? `/test/question=${questionNumber}` : `/result`
-    );
+    if (questionNumber < 6) {
+      navigate(`/test/question=${questionNumber}`);
+    }
+    if (questionNumber > 5) {
+      // const result = { question: props.question, answers: answers };
+      // console.log(result);
+      if (user) {
+        fetch(`/api/testResult/${user.id}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ result: testScore }),
+        })
+          .then((response) => response.json())
+          .then((result) => console.log(result));
+      }
+
+      navigate("/result");
+    }
+    // navigate(
+    //   questionNumber < 6 ? `/test/question=${questionNumber}` : `/result`
+    // );
   }
 
   const answeralternative = [

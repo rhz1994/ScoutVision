@@ -22,13 +22,8 @@ app.get("/api/users", async (req, res) => {
   res.send(rows);
 });
 
-app.get("/api/testQuestions", async (req, res) => {
-  const { rows } = await client.query("SELECT * FROM testQuestions;");
-  res.send(rows);
-});
-
-app.get("/api/testQuestions2", async (req, res) => {
-  const { rows } = await client.query("SELECT * FROM testQuestions2");
+app.get("/api/testQuestion", async (req, res) => {
+  const { rows } = await client.query("SELECT * FROM testQuestion;");
   res.send(rows);
 });
 
@@ -81,15 +76,15 @@ app.post("/api/users", async (req, res) => {
   }
 });
 
-app.post("/api/post/:id", async (req, res) => {
+app.post("/api/testResult/:id", async (req, res) => {
   console.log(req.body);
   console.log(req.params);
-  const { question, answers } = req.body;
+  const { result } = req.body;
   const { id } = req.params;
 
   const { rows } = await client.query(
-    `INSERT INTO answers (user_id, question, answers) VALUES ($1, $2, $3) RETURNING *`,
-    [id, question, answers]
+    `INSERT INTO testResults (user_id, result) VALUES ($1, $2) RETURNING *`,
+    [id, result]
   );
 
   res.send(rows);

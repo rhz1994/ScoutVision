@@ -16,8 +16,10 @@ function Test() {
   const { data, isPending, error } = useQuery({
     queryKey: ["questions"],
     staleTime: 1000 * 60 * 30,
-    queryFn: () => fetch("/api/testQuestions2").then((r) => r.json()),
+    queryFn: () => fetch("/api/testQuestion").then((r) => r.json()),
   });
+
+  console.log(data);
 
   const questionNumber = pathname.split("=")[1] - 1;
 
