@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import MuiLink from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
-import MuiButton from "@mui/material/Button";
+import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import "./LoginPage.css";
@@ -92,13 +92,13 @@ function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <MuiButton
+        <Button
           variant="contained"
           type="submit"
           disabled={username.length === 0 || password.length === 0}
         >
           Logga in
-        </MuiButton>
+        </Button>
       </form>
 
       <Typography variant="body2" sx={{ mt: 1, mb: 2 }}>
