@@ -7,6 +7,12 @@ function Result() {
   const { result, setResult } = useContext(ResultContext);
   const navigate = useNavigate();
 
+  // const { data, isPending, error } = useQuery({
+  //   queryKey: ["questions"],
+  //   staleTime: 1000 * 60 * 30,
+  //   queryFn: () => fetch("/api/testQuestions2").then((result) => result.json()),
+  // });
+
   let style;
   if (result <= 5) {
     style = "normal";

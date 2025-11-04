@@ -29,6 +29,7 @@ function CheckboxCard(props) {
   const questionNumber = parseInt(pathname.split("=")[1]) + 1;
 
   function handleClick() {
+    // setResult(result + parseInt(value));
     setResult(result + parseInt(value));
 
     // const result = { question: props.question, answers: answers };
