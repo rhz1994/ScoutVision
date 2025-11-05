@@ -30,7 +30,7 @@ function Profile() {
     severity: "info",
   });
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const [testResults, setTestResults] = useState([]);
+  const [testResults, setTestResults] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -128,10 +128,7 @@ function Profile() {
     fetch(`/api/testResults/${user.id}`, { method: "GET" })
       .then((result) => result.json())
       .then((data) => {
-        console.log(data);
-
         setTestResults(data);
-        console.log(testResults);
       });
   }, [user]);
 
@@ -205,7 +202,11 @@ function Profile() {
         <Card sx={{ padding: 5, mb: 4 }}>
           <CardContent sx={{ height: "100%" }}>
             <List>
-              {testResults.length > 0 ? (
+              {testResults === null ? (
+                <Typography variant="body2" color="text.secondary">
+                  Laddar resultat...
+                </Typography>
+              ) : testResults.length > 0 ? (
                 testResults.map((result) => (
                   <ListItem key={result.id}>
                     <ListItemText

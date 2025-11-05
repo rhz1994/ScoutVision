@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 
 function UserContextProvider({ children }) {
   const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem("user");
-    return saved ? JSON.parse(saved) : null;
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
   });
 
   const [isLoggedIn, setIsLoggedIn] = useState(user !== null);

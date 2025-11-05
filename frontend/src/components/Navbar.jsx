@@ -4,16 +4,7 @@ import Login from "./Login";
 import Logo from "./Logo";
 import { UserContext } from "../contexts/UserContext";
 import { useLocation, useParams } from "react-router-dom";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-  Menu,
-  MenuItem,
-  Box,
-} from "@mui/material";
+import { AppBar, Toolbar, Button, Box } from "@mui/material";
 
 import "./Navbar.css";
 
