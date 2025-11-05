@@ -4,6 +4,16 @@ import Login from "./Login";
 import Logo from "./Logo";
 import { UserContext } from "../contexts/UserContext";
 import { useLocation, useParams } from "react-router-dom";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Box,
+} from "@mui/material";
 
 import "./Navbar.css";
 
@@ -22,50 +32,48 @@ function Navbar() {
   };
 
   return (
-    <header>
-      <nav className="Navbar-nav">
+    <AppBar position="static" color="primary">
+      <Toolbar>
         <Link className="Navbar-link-logo" to="/">
           <Logo className="Navbar-logo" />
         </Link>
         <span>{pathname}</span>
         <span>{question}</span>
 
-        <ul className="Navbar-ul">
-          <li className="Navbar-li">
-            <Link className="Navbar-link" to="/">
-              Hem
-            </Link>
-          </li>
+        <Box sx={{ flexGrow: 1 }} />
 
-          <li className="Navbar-li">
-            <Link className="Navbar-link" to="/test/question=1">
-              Test
-            </Link>
-          </li>
+        <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
+          <Button color="secondary" component={Link} to="/">
+            Home
+          </Button>
+          <Button color="secondary" component={Link} to="/test/question=1">
+            Test
+          </Button>
 
-          <li className="Navbar-li">
-            <Link className="Navbar-link" to="/result">
-              Resultat
-            </Link>
-          </li>
+          <Button color="secondary" component={Link} to="/profile">
+            Profile
+          </Button>
+          <Button color="secondary" component={Link} to="/result">
+            Resultat
+          </Button>
+        </Box>
 
-          <li className="Navbar-li">
-            {isLoggedIn ? (
-              <>
-                <Link className="Navbar-link" to="/profile">
-                  Profil
-                </Link>
-                <button onClick={handleLogout}>Logga ut</button>
-              </>
-            ) : (
-              <Link className="Navbar-link" to="/login">
-                <Login />
-              </Link>
-            )}
-          </li>
-        </ul>
-      </nav>
-    </header>
+        {isLoggedIn ? (
+          <>
+            <Button color="secondary" component={Link} to="/profile">
+              Profil
+            </Button>
+            <Button color="secondary" onClick={handleLogout}>
+              Logga ut
+            </Button>
+          </>
+        ) : (
+          <Button color="secondary" component={Link} to="/login">
+            Logga in
+          </Button>
+        )}
+      </Toolbar>
+    </AppBar>
   );
 }
 
