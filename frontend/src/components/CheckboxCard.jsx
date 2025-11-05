@@ -1,5 +1,4 @@
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
+import { Card, CardContent, CardHeader } from "@mui/material";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -69,6 +68,7 @@ function CheckboxCard(props) {
   return (
     <Card variant="outlined" sx={{ width: "500px" }}>
       <CardContent>
+        <CardHeader title={props.question} />
         <FormControl
           sx={{
             // backgroundColor: "red",
@@ -91,7 +91,7 @@ function CheckboxCard(props) {
               "&:focus": { color: "black" },
             }}
           >
-            {props.question}
+            {`Fråga ${props.id} av 5`}
           </FormLabel>
           <FormGroup
             style={{
