@@ -8,6 +8,16 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const { user, setUser } = useContext(UserContext);
@@ -19,6 +29,9 @@ function Profile() {
     message: "",
     severity: "info",
   });
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [testResults, setTestResults] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setUsername(user?.username || "user");
@@ -41,9 +54,9 @@ function Profile() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
     })
-      .then((res) =>
-        res.json().then((data) => {
-          if (!res.ok) {
+      .then((result) =>
+        result.json().then((data) => {
+          if (!result.ok) {
             throw new Error(data.message || "Något gick fel");
           }
           return data;
@@ -79,6 +92,49 @@ function Profile() {
     setSnackbar({ ...snackbar, open: false });
   };
 
+  const handleDeleteClick = () => {
+    setOpenDeleteDialog(true);
+  };
+
+  const deleteProfile = () => {
+    fetch(`/api/users/${user.id}`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Något gick fel vid borttagning");
+        setUser(null);
+        setSnackbar({
+          open: true,
+          message: "Profilen raderades!",
+          severity: "success",
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        setSnackbar({
+          open: true,
+          message: error.message,
+          severity: "error",
+        });
+      });
+    setOpenDeleteDialog(false);
+  };
+
+  const handleCancelDelete = () => {
+    setOpenDeleteDialog(false);
+  };
+
+  useEffect(() => {
+    fetch(`/api/testResults/${user.id}`, { method: "GET" })
+      .then((result) => result.json())
+      .then((data) => {
+        console.log(data);
+
+        setTestResults(data);
+        console.log(testResults);
+      });
+  }, [user]);
+
   return (
     <>
       <h1>Hej, {user ? user.username : "user"}</h1>
@@ -108,6 +164,13 @@ function Profile() {
                 <Typography>Lösenord: ********</Typography>
                 <Button variant="outlined" onClick={() => setIsEditing(true)}>
                   Redigera profil
+                </Button>
+                <Button
+                  color="error"
+                  variant="outlined"
+                  onClick={handleDeleteClick}
+                >
+                  Ta bort profil
                 </Button>
               </>
             ) : (
@@ -141,12 +204,38 @@ function Profile() {
 
         <Card sx={{ padding: 5, mb: 4 }}>
           <CardContent sx={{ height: "100%" }}>
-            <Typography variant="h5" component="div">
-              Sparade tester
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Test1, Test2
-            </Typography>
+            <List>
+              {testResults.length > 0 ? (
+                testResults.map((result) => (
+                  <ListItem key={result.id}>
+                    <ListItemText
+                      primary={result.testName || `Test ${result.id}`}
+                      secondary={
+                        <span>
+                          <span>
+                            <strong>Resultat:</strong> {result.result}
+                          </span>
+                          <br />
+                          <span>
+                            <strong>Telefonnummer:</strong>
+                            {result.suspect_details}
+                          </span>
+                          <br />
+                          <span>
+                            <strong>Datum:</strong> {result.created_at}
+                          </span>
+                          <br />
+                        </span>
+                      }
+                    />
+                  </ListItem>
+                ))
+              ) : (
+                <Typography variant="body2" color="text.secondary">
+                  Inga sparade resultat
+                </Typography>
+              )}
+            </List>
           </CardContent>
         </Card>
       </Box>
@@ -165,6 +254,21 @@ function Profile() {
           {snackbar.message}
         </Alert>
       </Snackbar>
+
+      <Dialog open={openDeleteDialog} onClose={handleCancelDelete}>
+        <DialogTitle>Bekräfta borttagning</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Är du säker på att du vill ta bort din profil?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelDelete}>Avbryt</Button>
+          <Button onClick={deleteProfile} color="error" variant="contained">
+            Ta bort
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

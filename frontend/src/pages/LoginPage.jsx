@@ -35,7 +35,7 @@ function LoginPage() {
         );
 
         if (user) {
-          setUser(user);
+          setUser({ id: user.id, username: user.username });
           console.log(user);
           setSnackbar({
             open: true,

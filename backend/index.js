@@ -34,6 +34,7 @@ app.get("/api/testResults/:id", async (req, res) => {
   );
   res.send(rows);
 });
+
 app.post("/api/users", async (req, res) => {
   const { username, password } = req.body;
 
@@ -125,8 +126,27 @@ app.put("/api/update/:id", async (req, res) => {
   }
 });
 
-app.delete("api/delete/:id", (req, res) => {
+app.delete("/api/users/:id", async (req, res) => {
   const { id } = req.params;
+
+  try {
+    const sql = `DELETE FROM users WHERE id = $1 RETURNING id, username`;
+    const params = [id];
+
+    const result = await client.query(sql, params);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "Användare hittades inte" });
+    }
+
+    res.status(200).json({
+      message: "Användare raderad",
+      data: result.rows[0],
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Något gick fel vid borttagning" });
+  }
 });
 
 app.use(express.static(path.join(path.resolve(), "dist")));
