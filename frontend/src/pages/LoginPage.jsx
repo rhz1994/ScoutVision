@@ -1,16 +1,17 @@
-import { useContext, useState } from "react";
-import { UserContext } from "../contexts/UserContext";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
+
 import TextField from "@mui/material/TextField";
 import MuiLink from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+
 import "./LoginPage.css";
 
 function LoginPage() {
-  const { setIsLoggedIn } = useContext(UserContext);
   const { user, setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
@@ -34,19 +35,14 @@ function LoginPage() {
         );
 
         if (user) {
-          setUser({
-            username: user.username,
-            password: user.password,
-            id: user.id,
-          });
+          setUser(user);
           console.log(user);
-          setIsLoggedIn(true);
           setSnackbar({
             open: true,
             message: "Inloggning lyckades!",
             severity: "success",
           });
-          setTimeout(() => navigate("/profile"), 1000);
+          navigate("/profile");
         } else {
           setSnackbar({
             open: true,

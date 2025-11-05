@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -19,6 +19,10 @@ function Profile() {
     message: "",
     severity: "info",
   });
+
+  useEffect(() => {
+    setUsername(user?.username || "user");
+  }, [user]);
 
   const handleEdit = (event) => {
     event.preventDefault();
@@ -77,7 +81,7 @@ function Profile() {
 
   return (
     <>
-      <h1>Hej, {user?.username || "user"}</h1>
+      <h1>Hej, {user ? user.username : "user"}</h1>
       <Box
         sx={{
           width: "100%",
