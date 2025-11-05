@@ -41,9 +41,6 @@ function Navbar() {
             Test
           </Button>
 
-          <Button color="secondary" component={Link} to="/profile">
-            Profile
-          </Button>
           <Button color="secondary" component={Link} to="/result">
             Resultat
           </Button>
