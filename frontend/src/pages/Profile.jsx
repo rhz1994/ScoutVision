@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -17,12 +18,10 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 
-import { useNavigate } from "react-router-dom";
-
 function Profile() {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
   const [isEditing, setIsEditing] = useState(false);
-  const [username, setUsername] = useState(user?.username || "user");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -32,6 +31,12 @@ function Profile() {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [testResults, setTestResults] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, [isLoggedIn, navigate]);
 
   useEffect(() => {
     setUsername(user?.username || "user");
@@ -157,7 +162,9 @@ function Profile() {
 
             {!isEditing ? (
               <>
-                <Typography>Användarnamn: {username}</Typography>
+                <Typography>
+                  Användarnamn: {user ? user.username : ""}
+                </Typography>
                 <Typography>Lösenord: ********</Typography>
                 <Button variant="outlined" onClick={() => setIsEditing(true)}>
                   Redigera profil

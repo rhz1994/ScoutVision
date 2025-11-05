@@ -147,6 +147,30 @@ app.delete("/api/users/:id", async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Något gick fel vid borttagning" });
   }
+  try {
+    await client.query(`DELETE FROM testResults WHERE user_id = $1`, [id]);
+    const { rows } = await client.query(
+      `DELETE FROM users WHERE id = $1 RETURNING *`,
+      [id]
+    );
+    res.send(rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+app.delete("/api/deleteUser/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    await client.query(`DELETE FROM testResults WHERE user_id = $1`, [id]);
+    const { rows } = await client.query(
+      `DELETE FROM users WHERE id = $1 RETURNING *`,
+      [id]
+    );
+    res.send(rows);
+  } catch (err) {
+    console.log(err.message);
+  }
 });
 
 app.use(express.static(path.join(path.resolve(), "dist")));

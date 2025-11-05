@@ -19,40 +19,22 @@ function Test() {
     queryFn: () => fetch("/api/testQuestion").then((r) => r.json()),
   });
 
-  console.log(data);
-
   const questionNumber = pathname.split("=")[1] - 1;
 
   return (
     <div id="test-container" className="primary-color">
-      {/* <Stack>
-        <Pagination count={5} />
-      </Stack> */}
-      {isPending && <CircularProgress />}
+      {isPending && (
+        <CircularProgress color="contrast" thickness={7} size={75} />
+      )}
       {error && <span>Något gick fel med att hämta datan.</span>}
+
       {data && (
         <CheckboxCard
           key={data[questionNumber].id}
           question={data[questionNumber].question}
+          id={data[questionNumber].id}
         />
       )}
-
-      {/* {testQuestions &&
-        testQuestions.map((testQuestion) => (
-          <CheckboxCard
-            key={testQuestion.id}
-            question={testQuestion.question}
-            answeralternative={testQuestion.answeralternative}
-          />
-        ))} */}
-      {/* {testQuestions &&
-        testQuestions.map((testQuestion) => (
-          <QuestionCard
-            key={testQuestion.id}
-            question={testQuestion.question}
-            answeralternative={testQuestion.answeralternative}
-          />
-        ))} */}
     </div>
   );
 }
