@@ -224,14 +224,17 @@ function Profile() {
                             <strong>Resultat:</strong> {result.result}
                           </span>
                           <br />
-                          <span>
-                            <strong>Telefonnummer:</strong>
-                            {result.suspect_details}
-                          </span>
-                          <br />
+
                           <span>
                             <strong>Datum:</strong> {result.created_at}
                           </span>
+                          <br />
+                          {result.suspect_details && (
+                            <span>
+                              <strong>Telefonnummer:</strong>
+                              {result.suspect_details}
+                            </span>
+                          )}
                           <br />
                         </span>
                       }

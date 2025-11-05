@@ -20,7 +20,7 @@ CREATE TABLE reportedPhoneNumbers (
   report_count INTEGER DEFAULT 1,
   freetext TEXT,
   user_id INTEGER,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE reportedLinks (
@@ -30,7 +30,7 @@ CREATE TABLE reportedLinks (
   last_reported TIMESTAMP DEFAULT now(),
   freetext TEXT,
   user_id INTEGER,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE testQuestion (
@@ -44,14 +44,16 @@ CREATE TABLE testResults (
   suspect_details TEXT,
   result INTEGER NOT NULL,
   created_at TIMESTAMP DEFAULT now(),
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE answers (
   id serial PRIMARY KEY,
   user_id INTEGER,
   question TEXT NOT NULL,
-  answers TEXT[] NOT NULL
+  answers TEXT[] NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+
 );
 
 INSERT INTO testQuestion(question)
