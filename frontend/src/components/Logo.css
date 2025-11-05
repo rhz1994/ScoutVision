@@ -1,0 +1,15 @@
+.Navbar-link-logo {
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  margin-left: 2rem;
+}
+#logo {
+  /* border: 1px solid black; */
+  margin: 0;
+}
+.logo-header {
+  font-size: 2.5rem;
+}

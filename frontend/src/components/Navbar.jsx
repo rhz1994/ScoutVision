@@ -24,9 +24,8 @@ function Navbar() {
   return (
     <header>
       <nav className="Navbar-nav">
-        <Link className="Navbar-link-logo" to="/">
-          <Logo className="Navbar-logo" />
-        </Link>
+        <Logo className="Navbar-logo" />
+
         <span>{pathname}</span>
         <span>{question}</span>
 

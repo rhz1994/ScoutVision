@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ResultContext } from "../contexts/ResultContext";
 import "./Result.css";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext";
+
 import {
   Card,
   CardHeader,
@@ -14,7 +14,6 @@ import {
 
 function Result() {
   const { result, setResult } = useContext(ResultContext);
-  const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   let style;
@@ -56,7 +55,7 @@ function Result() {
         <CardActions
           children={
             <Button variant="contained" color="contrast" onClick={handleClick}>
-              Gå vidare
+              Gå hem
             </Button>
           }
         />
