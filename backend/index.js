@@ -159,6 +159,7 @@ app.delete("/api/users/:id", async (req, res) => {
   }
 });
 
+// Behålla?
 app.delete("/api/deleteUser/:id", async (req, res) => {
   const { id } = req.params;
   try {

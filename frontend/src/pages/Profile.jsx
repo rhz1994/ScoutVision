@@ -19,7 +19,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 
 function Profile() {
-  const { user, setUser, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const { user, setUser, isLoggedIn, _setIsLoggedIn } = useContext(UserContext);
   const [isEditing, setIsEditing] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
