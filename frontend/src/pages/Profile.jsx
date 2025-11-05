@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -10,15 +11,39 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
 function Profile() {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
   const [isEditing, setIsEditing] = useState(false);
-  const [username, setUsername] = useState(user?.username || "user");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
     severity: "info",
   });
+  const navigate = useNavigate();
+
+  function deleteUser() {
+    const proceed = prompt(
+      `Användarnamn: ${user.username}
+      Skriv ditt användarnamn om du vill fortsätta.`
+    );
+    if (proceed !== user.username) {
+      return;
+    }
+    try {
+      fetch(`/api/deleteUser/${user.id}`, {
+        method: "DELETE",
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setUser(null);
+          setIsLoggedIn(false);
+        });
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
 
   const handleEdit = (event) => {
     event.preventDefault();
@@ -78,6 +103,11 @@ function Profile() {
   return (
     <>
       <h1>Hej, {user?.username || "user"}</h1>
+      {isLoggedIn && (
+        <Button variant="text" onClick={deleteUser} sx={{ mt: 1 }}>
+          Ta bort användare
+        </Button>
+      )}
       <Box
         sx={{
           width: "100%",
@@ -100,7 +130,9 @@ function Profile() {
 
             {!isEditing ? (
               <>
-                <Typography>Användarnamn: {username}</Typography>
+                <Typography>
+                  Användarnamn: {user ? user.username : ""}
+                </Typography>
                 <Typography>Lösenord: ********</Typography>
                 <Button variant="outlined" onClick={() => setIsEditing(true)}>
                   Redigera profil

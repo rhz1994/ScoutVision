@@ -125,8 +125,18 @@ app.put("/api/update/:id", async (req, res) => {
   }
 });
 
-app.delete("api/delete/:id", (req, res) => {
+app.delete("/api/deleteUser/:id", async (req, res) => {
   const { id } = req.params;
+  try {
+    await client.query(`DELETE FROM testResults WHERE user_id = $1`, [id]);
+    const { rows } = await client.query(
+      `DELETE FROM users WHERE id = $1 RETURNING *`,
+      [id]
+    );
+    res.send(rows);
+  } catch (err) {
+    console.log(err.message);
+  }
 });
 
 app.use(express.static(path.join(path.resolve(), "dist")));
