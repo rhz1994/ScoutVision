@@ -99,7 +99,7 @@ app.put("/api/update/:id", async (req, res) => {
       UPDATE users
       SET username = $1, password = $2
       WHERE id = $3
-      RETURNING *;
+      RETURNING id, username;
     `;
     let params = [username, password, id];
 
