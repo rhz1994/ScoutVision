@@ -21,13 +21,19 @@ app.get("/api/users", async (req, res) => {
   try {
     const { rows } = await client.query("SELECT * FROM users;");
     res.send(rows);
-  } catch (error) {}
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-// app.get("/api/testQuestion", async (req, res) => {
-//   const { rows } = await client.query("SELECT * FROM testQuestion;");
-//   res.send(rows);
-// });
+app.get("/api/testQuestion", async (req, res) => {
+  try {
+    const { rows } = await client.query("SELECT * FROM testQuestion;");
+    res.send(rows);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 // app.get("/api/testResults/:id", async (req, res) => {
 //   const { id } = req.params;
