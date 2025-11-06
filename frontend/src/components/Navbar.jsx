@@ -26,8 +26,6 @@ function Navbar() {
     <AppBar position="static" color="secondary">
       <Toolbar>
         <Logo component={Link} to="/" className="Navbar-logo" />
-        <span>{pathname}</span>
-        <span>{question}</span>
 
         <Box sx={{ flexGrow: 1 }} />
 

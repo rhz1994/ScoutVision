@@ -18,13 +18,21 @@ app.use(express.urlencoded({ extended: true }));
 port = 3000;
 
 app.get("/api/users", async (req, res) => {
+  try {
   const { rows } = await client.query("SELECT * FROM users;");
   res.send(rows);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.get("/api/testQuestion", async (req, res) => {
+  try {
   const { rows } = await client.query("SELECT * FROM testQuestion;");
   res.send(rows);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.get("/api/testResults/:id", async (req, res) => {
@@ -149,7 +157,7 @@ app.delete("/api/users/:id", async (req, res) => {
   }
 });
 
-app.use(express.static(path.join(path.resolve(), "dist")));
+// app.use(express.static(path.join(path.resolve(), "dist")));
 
 app.listen(port, () => {
   console.log(`Redo på port http://localhost:${port}/`);
