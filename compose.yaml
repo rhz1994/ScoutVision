@@ -11,16 +11,16 @@ services:
       database:
         condition: service_healthy
     environment:
-      - PGURI={$PGURI}
+      - PGURI=postgres://postgres:9099@database/postgres
 
     ports:
       - "3000:3000"
   database:
     environment:
-      - POSTGRES_PASSWORD={$POSTGRES_PASSWORD}
+      - POSTGRES_PASSWORD=9099
     healthcheck:
       interval: 1s
       test: "pg_isready --username=postgres"
     image: postgres:15.13-bookworm
     volumes:
-      - ./data:/var/lib/postgresql
+      - ./data:/var/lib/postgresql/data
