@@ -6,6 +6,7 @@ import { theme } from "./layout";
 import UserContextProvider from "./contexts/UserProvider";
 import ResultProvider from "./contexts/ResultProvider";
 import Router from "./router/Router";
+import "./App.css";
 
 const queryClient = new QueryClient();
 
