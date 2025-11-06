@@ -23,7 +23,7 @@ function Navbar() {
   };
 
   return (
-    <AppBar sx={{ mb: "3em" }} position="static" color="secondary">
+    <AppBar position="static" color="secondary">
       <Toolbar>
         <Logo component={Link} to="/" className="Navbar-logo" />
         <span>{pathname}</span>

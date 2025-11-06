@@ -3,10 +3,8 @@ function Footer() {
   return (
     <footer id="footer" className="footer">
       <ul>
-        <li>Home</li>
-        <li>Profile</li>
-        <li>Test</li>
-        <li>Kontakt</li>
+        <li>Användarvillkor</li>
+        <li>Integritetspolicy</li>
       </ul>
     </footer>
   );

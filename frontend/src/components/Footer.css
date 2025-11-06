@@ -1,14 +1,13 @@
 .footer {
-  margin-top: 5em;
   background-color: black;
   color: white;
-  padding: 0.5em;
 }
 
 ul {
+  display: flex;
   list-style: none;
 }
 
 li {
-  margin: 1em;
+  margin: 0.5em;
 }

@@ -60,7 +60,7 @@ function CheckboxCard(props) {
   ];
 
   return (
-    <Card variant="outlined" sx={{ width: "650px" }}>
+    <Card variant="outlined" sx={{ width: "500px" }}>
       <CardContent>
         <CardHeader title={props.question} />
         <FormControl
