@@ -67,7 +67,7 @@ function LoginPage() {
 
   return (
     <div className="login-page">
-      <Typography variant="h3" component="h1">
+      <Typography variant="h4" component="h1">
         Logga in
       </Typography>
       <form id="login-form" onSubmit={handleLogin}>

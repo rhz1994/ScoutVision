@@ -139,7 +139,18 @@ function Profile() {
 
   return (
     <>
-      <h1>Hej, {user ? user.username : "user"}</h1>
+      <Typography
+        sx={{
+          width: "fit-content",
+          backgroundColor: "#ffce2e",
+          margin: "center",
+          mb: "2em",
+        }}
+        variant="h4"
+        component="h1"
+      >
+        Hej, {user ? user.username : "user"}
+      </Typography>
       <Box
         sx={{
           width: "100%",
