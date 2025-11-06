@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Login from "./Login";
 import Logo from "./Logo";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { UserContext } from "../contexts/UserContext";
 import { useLocation, useParams } from "react-router-dom";
 import { AppBar, Toolbar, Button, Box } from "@mui/material";
@@ -23,42 +23,43 @@ function Navbar() {
   };
 
   return (
-    <AppBar position="static" color="primary">
+    <AppBar sx={{ mb: "3em" }} position="static" color="secondary">
       <Toolbar>
-        <Link className="Navbar-link-logo" to="/">
-          <Logo className="Navbar-logo" />
-        </Link>
+        <Logo component={Link} to="/" className="Navbar-logo" />
         <span>{pathname}</span>
         <span>{question}</span>
 
         <Box sx={{ flexGrow: 1 }} />
 
         <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
-          <Button color="secondary" component={Link} to="/">
-            Home
+          <Button color="primary" component={Link} to="/">
+            Hem
           </Button>
-          <Button color="secondary" component={Link} to="/test/question=1">
+          <Button color="primary" component={Link} to="/test/question=1">
             Test
           </Button>
 
-          <Button color="secondary" component={Link} to="/result">
+          <Button color="primary" component={Link} to="/result">
             Resultat
           </Button>
         </Box>
 
         {isLoggedIn ? (
           <>
-            <Button color="secondary" component={Link} to="/profile">
+            <Button color="primary" component={Link} to="/profile">
               Profil
             </Button>
-            <Button color="secondary" onClick={handleLogout}>
+            <Button color="primary" onClick={handleLogout}>
               Logga ut
             </Button>
           </>
         ) : (
-          <Button color="secondary" component={Link} to="/login">
-            Logga in
-          </Button>
+          <Link to="/login">
+            <AccountCircleIcon
+              color="contrast"
+              sx={{ width: "2em", height: "2em" }}
+            />
+          </Link>
         )}
       </Toolbar>
     </AppBar>

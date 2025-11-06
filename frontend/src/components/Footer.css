@@ -1,4 +1,14 @@
 .footer {
+  margin-top: 5em;
   background-color: black;
   color: white;
+  padding: 0.5em;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  margin: 1em;
 }

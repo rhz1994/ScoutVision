@@ -12,7 +12,7 @@ function Hero() {
       <div className="hero-div">
         <SafetyCheckIcon
           className="hero-child"
-          color="secondary"
+          color="primary"
           sx={{ fontSize: 100 }}
         />
         <p className="secondary-color hero-child" style={{ fontSize: "24px" }}>
