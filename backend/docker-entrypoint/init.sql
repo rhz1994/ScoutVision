@@ -1,10 +1,8 @@
-DROP TABLE IF EXISTS user_reports CASCADE;
 DROP TABLE IF EXISTS reportedlinks CASCADE;
 DROP TABLE IF EXISTS reportedphonenumbers CASCADE;
 DROP TABLE IF EXISTS testResults CASCADE;
 DROP TABLE IF EXISTS testQuestion CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS answers CASCADE;
 
 
 CREATE TABLE users (
@@ -47,15 +45,6 @@ CREATE TABLE testResults (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE answers (
-  id serial PRIMARY KEY,
-  user_id INTEGER,
-  question TEXT NOT NULL,
-  answers TEXT[] NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-
-);
-
 INSERT INTO testQuestion(question)
 VALUES
 ('Innehöll meddelandet en länk som du uppmanades att klicka på?'),
@@ -66,9 +55,6 @@ VALUES
 
 
 INSERT INTO users (username, password) VALUES ('Jane Doe', 'password'), ('Adam Pålsson', '1234'), ('Hugo Larsson', 'secret');
-
-INSERT INTO answers (user_id, question, answers) VALUES ( 1, 'Fråga', '{{SMS, Telefon, Länk}}');
-
 
 INSERT INTO reportedPhoneNumbers (phone_number, freetext) VALUES ('077-8137813', 'Använde kivra');
 
@@ -81,4 +67,3 @@ SELECT * FROM reportedPhoneNumbers;
 SELECT * FROM reportedLinks;
 SELECT * FROM testResults;
 SELECT * FROM testQuestion;
-SELECT * FROM answers;

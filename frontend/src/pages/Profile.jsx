@@ -128,7 +128,7 @@ function Profile() {
   const handleCancelDelete = () => {
     setOpenDeleteDialog(false);
   };
-
+  // TODO använda tanStack query
   useEffect(() => {
     fetch(`/api/testResults/${user.id}`, { method: "GET" })
       .then((result) => result.json())
