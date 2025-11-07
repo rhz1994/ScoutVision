@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect, Suspense, lazy } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
-import { useQuery } from "@tanstack/react-query";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -29,17 +28,11 @@ function Profile() {
     if (!isLoggedIn) navigate("/login");
   }, [isLoggedIn, navigate]);
 
-  // TODO använda tanStack query
-
-  const { data, isPending, error } = useQuery({
-    queryKey: ["testResults"],
-    queryFn: () =>
-      fetch(`/api/testResults/${user.id}`).then((result) => result.json()),
-  });
-
-  console.log("testResults: ", data);
-  console.log("ispending: ", isPending);
-  console.log("error: ", error);
+  // const { data, isPending } = useQuery({
+  //   queryKey: ["testResults"],
+  //   queryFn: () =>
+  //     fetch(`/api/testResults/${user.id}`).then((result) => result.json()),
+  // });
 
   const handleCloseSnackbar = () => setSnackbar({ ...snackbar, open: false });
 
@@ -66,24 +59,13 @@ function Profile() {
 
   return (
     <>
-      <Typography
-        sx={{
-          width: "fit-content",
-          backgroundColor: "#ffce2e",
-          m: "1em",
-        }}
-        variant="h4"
-        component="h1"
-      >
-        Hej, {user ? user.username : "user"}
-      </Typography>
-
       <Box
         sx={{
           width: "100%",
           display: "flex",
           gap: 2,
           justifyContent: "center",
+          padding: "2rem",
         }}
       >
         <Card sx={{ padding: 5, mb: 4 }}>
@@ -93,7 +75,7 @@ function Profile() {
             <Typography variant="h5">Personliga uppgifter</Typography>
             {!isEditing ? (
               <>
-                <Typography>Användarnamn: {user?.username}</Typography>
+                <Typography>Användarnamn: {user && user.username}</Typography>
                 <Typography>Lösenord: ********</Typography>
                 <Button variant="outlined" onClick={() => setIsEditing(true)}>
                   Redigera profil
@@ -119,10 +101,10 @@ function Profile() {
           </CardContent>
         </Card>
 
-        <Card sx={{ padding: 5, mb: 4 }}>
+        <Card>
           <CardContent sx={{ height: "100%" }}>
             <Suspense fallback={<Typography>Laddar resultat...</Typography>}>
-              <TestResultsList testResults={data} />
+              <TestResultsList />
             </Suspense>
           </CardContent>
         </Card>
