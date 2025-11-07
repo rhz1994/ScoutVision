@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect, Suspense, lazy } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
+import { useQuery } from "@tanstack/react-query";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -14,7 +15,7 @@ const TestResultsList = lazy(() => import("../components/TestResultsList"));
 const DeleteDialog = lazy(() => import("../components/DeleteDialog"));
 
 function Profile() {
-  const { user, setUser, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const { user, setUser, isLoggedIn } = useContext(UserContext);
   const [isEditing, setIsEditing] = useState(false);
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -22,7 +23,6 @@ function Profile() {
     severity: "info",
   });
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const [testResults, setTestResults] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,11 +31,15 @@ function Profile() {
 
   // TODO använda tanStack query
 
-  useEffect(() => {
-    fetch(`/api/testResults/${user.id}`)
-      .then((res) => res.json())
-      .then((data) => setTestResults(data));
-  }, [user]);
+  const { data, isPending, error } = useQuery({
+    queryKey: ["testResults"],
+    queryFn: () =>
+      fetch(`/api/testResults/${user.id}`).then((result) => result.json()),
+  });
+
+  console.log("testResults: ", data);
+  console.log("ispending: ", isPending);
+  console.log("error: ", error);
 
   const handleCloseSnackbar = () => setSnackbar({ ...snackbar, open: false });
 
@@ -118,7 +122,7 @@ function Profile() {
         <Card sx={{ padding: 5, mb: 4 }}>
           <CardContent sx={{ height: "100%" }}>
             <Suspense fallback={<Typography>Laddar resultat...</Typography>}>
-              <TestResultsList testResults={testResults} />
+              <TestResultsList testResults={data} />
             </Suspense>
           </CardContent>
         </Card>

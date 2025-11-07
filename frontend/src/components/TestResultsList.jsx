@@ -22,16 +22,10 @@ function TestResultsList({ testResults }) {
             primary={result.testName || `Test ${result.id}`}
             secondary={
               <>
-                <div>
-                  <strong>Resultat:</strong> {result.result}
-                </div>
-                <div>
-                  <strong>Datum:</strong> {result.created_at}
-                </div>
+                <strong>Resultat:</strong> {result.result}
+                <strong>Datum:</strong> {result.created_at}
                 {result.suspect_details && (
-                  <div>
-                    <strong>Telefonnummer:</strong> {result.suspect_details}
-                  </div>
+                  <strong>Telefonnummer: {result.suspect_details}</strong>
                 )}
               </>
             }
