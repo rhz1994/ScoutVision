@@ -1,0 +1,123 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+
+function RegisterForm({ setSnackbar }) {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false);
+
+  const handleRegister = async (event) => {
+    event.preventDefault();
+
+    if (!username || !password) {
+      setSnackbar({
+        open: true,
+        message: "Fyll i både användarnamn och lösenord",
+        severity: "error",
+      });
+      return;
+    }
+
+    if (!acceptTerms) {
+      setSnackbar({
+        open: true,
+        message: "Du måste godkänna villkoren för att fortsätta",
+        severity: "error",
+      });
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Något gick fel");
+
+      setSnackbar({
+        open: true,
+        message: "Konto skapades!",
+        severity: "success",
+      });
+      setTimeout(() => navigate("/login"), 1000);
+    } catch (err) {
+      setSnackbar({
+        open: true,
+        message: err.message,
+        severity: "error",
+      });
+    }
+  };
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        mt: 5,
+      }}
+    >
+      <Card sx={{ maxWidth: 400, width: "100%", padding: 3, boxShadow: 6 }}>
+        <CardContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <Typography variant="h5" component="h1" align="center" gutterBottom>
+            Skapa konto
+          </Typography>
+          <form
+            onSubmit={handleRegister}
+            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+          >
+            <TextField
+              label="Användarnamn"
+              variant="outlined"
+              fullWidth
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <TextField
+              label="Lösenord"
+              type="password"
+              variant="outlined"
+              fullWidth
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={acceptTerms}
+                  onChange={(e) => setAcceptTerms(e.target.checked)}
+                />
+              }
+              label="Jag godkänner villkoren"
+            />
+            <Button
+              variant="contained"
+              type="submit"
+              fullWidth
+              disabled={
+                !acceptTerms || username.length === 0 || password.length === 0
+              }
+              sx={{ mt: 1 }}
+            >
+              Skapa konto
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </Box>
+  );
+}
+
+export default RegisterForm;

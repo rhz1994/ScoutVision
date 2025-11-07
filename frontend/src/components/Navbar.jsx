@@ -3,14 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { UserContext } from "../contexts/UserContext";
-import { useLocation, useParams } from "react-router-dom";
+// import { useLocation, useParams } from "react-router-dom";
 import { AppBar, Toolbar, Button, Box } from "@mui/material";
 
 import "./Navbar.css";
 
 function Navbar() {
-  const { pathname } = useLocation();
-  const { question } = useParams();
+  // const { pathname } = useLocation();
+  // const { question } = useParams();
   const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
   const { user, setUser } = useContext(UserContext);
 
@@ -30,24 +30,28 @@ function Navbar() {
         <Box sx={{ flexGrow: 1 }} />
 
         <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
-          <Button color="primary" component={Link} to="/">
+          <Button color="black" component={Link} to="/">
             Hem
           </Button>
-          <Button color="primary" component={Link} to="/test/question=1">
+          <Button color="black" component={Link} to="/test/question=1">
             Test
           </Button>
 
-          <Button color="primary" component={Link} to="/result">
+          <Button color="black" component={Link} to="/result">
             Resultat
           </Button>
         </Box>
 
         {isLoggedIn ? (
           <>
-            <Button color="primary" component={Link} to="/profile">
+            <Button color="black" component={Link} to="/profile">
               Profil
             </Button>
-            <Button color="primary" onClick={handleLogout}>
+            <Button
+              color="black"
+              sx={{ backgroundColor: "#ffce2e" }}
+              onClick={handleLogout}
+            >
               Logga ut
             </Button>
           </>

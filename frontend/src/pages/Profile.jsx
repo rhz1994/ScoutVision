@@ -1,28 +1,21 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, Suspense, lazy } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
+
+const ProfileForm = lazy(() => import("../components/ProfileForm"));
+const TestResultsList = lazy(() => import("../components/TestResultsList"));
+const DeleteDialog = lazy(() => import("../components/DeleteDialog"));
 
 function Profile() {
-  const { user, setUser, isLoggedIn, _setIsLoggedIn } = useContext(UserContext);
+  const { user, setUser, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
   const [isEditing, setIsEditing] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -33,78 +26,22 @@ function Profile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/login");
-    }
+    if (!isLoggedIn) navigate("/login");
   }, [isLoggedIn, navigate]);
 
   useEffect(() => {
-    setUsername(user?.username || "user");
+    fetch(`/api/testResults/${user.id}`)
+      .then((res) => res.json())
+      .then((data) => setTestResults(data));
   }, [user]);
 
-  const handleEdit = (event) => {
-    event.preventDefault();
+  const handleCloseSnackbar = () => setSnackbar({ ...snackbar, open: false });
 
-    if (!username) {
-      setSnackbar({
-        open: true,
-        message: "Användarnamn får inte vara tomt",
-        severity: "error",
-      });
-      return;
-    }
-
-    fetch(`/api/update/${user.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    })
-      .then((result) =>
-        result.json().then((data) => {
-          if (!result.ok) {
-            throw new Error(data.message || "Något gick fel");
-          }
-          return data;
-        })
-      )
-      .then((data) => {
-        setSnackbar({
-          open: true,
-          message: "Din profil uppdaterades!",
-          severity: "success",
-        });
-
-        setUser((prev) => ({
-          ...prev,
-          username: data.data.username,
-          password: data.data.password,
-        }));
-
-        setIsEditing(false);
-        setPassword("");
-      })
-      .catch((error) => {
-        setSnackbar({
-          open: true,
-          message: error.message,
-          severity: "error",
-        });
-        console.error(error);
-      });
-  };
-
-  const handleCloseSnackbar = () => {
-    setSnackbar({ ...snackbar, open: false });
-  };
-
-  const handleDeleteClick = () => {
-    setOpenDeleteDialog(true);
-  };
+  const handleDeleteClick = () => setOpenDeleteDialog(true);
+  const handleCancelDelete = () => setOpenDeleteDialog(false);
 
   const deleteProfile = () => {
-    fetch(`/api/users/${user.id}`, {
-      method: "DELETE",
-    })
+    fetch(`/api/users/${user.id}`, { method: "DELETE" })
       .then((res) => {
         if (!res.ok) throw new Error("Något gick fel vid borttagning");
         setUser(null);
@@ -115,27 +52,11 @@ function Profile() {
         });
         navigate("/");
       })
-      .catch((error) => {
-        setSnackbar({
-          open: true,
-          message: error.message,
-          severity: "error",
-        });
-      });
+      .catch((err) =>
+        setSnackbar({ open: true, message: err.message, severity: "error" })
+      );
     setOpenDeleteDialog(false);
   };
-
-  const handleCancelDelete = () => {
-    setOpenDeleteDialog(false);
-  };
-
-  useEffect(() => {
-    fetch(`/api/testResults/${user.id}`, { method: "GET" })
-      .then((result) => result.json())
-      .then((data) => {
-        setTestResults(data);
-      });
-  }, [user]);
 
   return (
     <>
@@ -143,14 +64,14 @@ function Profile() {
         sx={{
           width: "fit-content",
           backgroundColor: "#ffce2e",
-          margin: "center",
-          mb: "2em",
+          m: "1em",
         }}
         variant="h4"
         component="h1"
       >
         Hej, {user ? user.username : "user"}
       </Typography>
+
       <Box
         sx={{
           width: "100%",
@@ -161,21 +82,12 @@ function Profile() {
       >
         <Card sx={{ padding: 5, mb: 4 }}>
           <CardContent
-            sx={{
-              gap: 3,
-              display: "flex",
-              flexDirection: "column",
-            }}
+            sx={{ gap: 3, display: "flex", flexDirection: "column" }}
           >
-            <Typography variant="h5" component="div">
-              Personliga uppgifter
-            </Typography>
-
+            <Typography variant="h5">Personliga uppgifter</Typography>
             {!isEditing ? (
               <>
-                <Typography>
-                  Användarnamn: {user ? user.username : ""}
-                </Typography>
+                <Typography>Användarnamn: {user?.username}</Typography>
                 <Typography>Lösenord: ********</Typography>
                 <Button variant="outlined" onClick={() => setIsEditing(true)}>
                   Redigera profil
@@ -189,75 +101,23 @@ function Profile() {
                 </Button>
               </>
             ) : (
-              <form onSubmit={handleEdit}>
-                <TextField
-                  required
-                  label="Användarnamn"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+              <Suspense fallback={<div>Laddar formulär...</div>}>
+                <ProfileForm
+                  user={user}
+                  setUser={setUser}
+                  setIsEditing={setIsEditing}
+                  setSnackbar={setSnackbar}
                 />
-                <TextField
-                  type="password"
-                  label="Nytt lösenord"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-                  Spara ändringar
-                </Button>
-                <Button
-                  variant="text"
-                  onClick={() => setIsEditing(false)}
-                  sx={{ mt: 1 }}
-                >
-                  Avbryt
-                </Button>
-              </form>
+              </Suspense>
             )}
           </CardContent>
         </Card>
 
         <Card sx={{ padding: 5, mb: 4 }}>
           <CardContent sx={{ height: "100%" }}>
-            <List>
-              {testResults === null ? (
-                <Typography variant="body2" color="text.secondary">
-                  Laddar resultat...
-                </Typography>
-              ) : testResults.length > 0 ? (
-                testResults.map((result) => (
-                  <ListItem key={result.id}>
-                    <ListItemText
-                      primary={result.testName || `Test ${result.id}`}
-                      secondary={
-                        <span>
-                          <span>
-                            <strong>Resultat:</strong> {result.result}
-                          </span>
-                          <br />
-
-                          <span>
-                            <strong>Datum:</strong> {result.created_at}
-                          </span>
-                          <br />
-                          {result.suspect_details && (
-                            <span>
-                              <strong>Telefonnummer:</strong>
-                              {result.suspect_details}
-                            </span>
-                          )}
-                          <br />
-                        </span>
-                      }
-                    />
-                  </ListItem>
-                ))
-              ) : (
-                <Typography variant="body2" color="text.secondary">
-                  Inga sparade resultat
-                </Typography>
-              )}
-            </List>
+            <Suspense fallback={<Typography>Laddar resultat...</Typography>}>
+              <TestResultsList testResults={testResults} />
+            </Suspense>
           </CardContent>
         </Card>
       </Box>
@@ -277,20 +137,11 @@ function Profile() {
         </Alert>
       </Snackbar>
 
-      <Dialog open={openDeleteDialog} onClose={handleCancelDelete}>
-        <DialogTitle>Bekräfta borttagning</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Är du säker på att du vill ta bort din profil?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCancelDelete}>Avbryt</Button>
-          <Button onClick={deleteProfile} color="error" variant="contained">
-            Ta bort
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <DeleteDialog
+        open={openDeleteDialog}
+        onCancel={handleCancelDelete}
+        onDelete={deleteProfile}
+      />
     </>
   );
 }

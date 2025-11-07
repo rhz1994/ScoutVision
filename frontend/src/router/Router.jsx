@@ -1,11 +1,13 @@
+import { lazy, Suspense } from "react";
 import { createHashRouter, Outlet, RouterProvider } from "react-router-dom";
-import Home from "../pages/Home";
-import Test from "../pages/Test";
-import Profile from "../pages/Profile";
-import LoginPage from "../pages/LoginPage";
-import Register from "../pages/Register";
-import Result from "../pages/Result";
-import TermsAndConditions from "../pages/TermsAndConditions";
+
+const Home = lazy(() => import("../pages/Home"));
+const Test = lazy(() => import("../pages/Test"));
+const Profile = lazy(() => import("../pages/Profile"));
+const LoginPage = lazy(() => import("../pages/LoginPage"));
+const Register = lazy(() => import("../pages/Register"));
+const Result = lazy(() => import("../pages/Result"));
+const TermsAndConditions = lazy(() => import("../pages/TermsAndConditions"));
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -14,28 +16,73 @@ import "./Router.css";
 function Router() {
   const router = createHashRouter([
     {
-      children: [
-        { element: <Home />, path: "/" },
-        { element: <Test />, path: "/test/:question" },
-        { element: <Profile />, path: "/profile" },
-        { element: <LoginPage />, path: "/login" },
-        { element: <Register />, path: "/register" },
-        { element: <Result />, path: "/result" },
-        { element: <LoginPage />, path: "login" },
-        { element: <Register />, path: "register" },
-        { element: <TermsAndConditions />, path: "terms-and-conditions" },
-      ],
       element: (
         <>
           <Navbar />
-
           <main className="app-main">
             <Outlet />
           </main>
-
           <Footer />
         </>
       ),
+      children: [
+        {
+          path: "/",
+          element: (
+            <Suspense fallback={<div>Laddar...</div>}>
+              <Home />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/test/:question",
+          element: (
+            <Suspense fallback={<div>Laddar...</div>}>
+              <Test />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/profile",
+          element: (
+            <Suspense fallback={<div>Laddar...</div>}>
+              <Profile />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/login",
+          element: (
+            <Suspense fallback={<div>Laddar...</div>}>
+              <LoginPage />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/register",
+          element: (
+            <Suspense fallback={<div>Laddar...</div>}>
+              <Register />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/result",
+          element: (
+            <Suspense fallback={<div>Laddar...</div>}>
+              <Result />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/terms-and-conditions",
+          element: (
+            <Suspense fallback={<div>Laddar...</div>}>
+              <TermsAndConditions />
+            </Suspense>
+          ),
+        },
+      ],
     },
   ]);
 

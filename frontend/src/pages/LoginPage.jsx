@@ -1,65 +1,22 @@
-import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useContext, lazy, Suspense } from "react";
+import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 
-import TextField from "@mui/material/TextField";
 import MuiLink from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
-import "./LoginPage.css";
+const LoginForm = lazy(() => import("../components/LoginForm"));
 
 function LoginPage() {
   const { user, setUser } = useContext(UserContext);
 
-  const navigate = useNavigate();
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
     severity: "info",
   });
-
-  const handleLogin = (event) => {
-    event.preventDefault();
-
-    fetch("/api/users")
-      .then((response) => response.json())
-      .then((users) => {
-        const user = users.find(
-          (u) => u.username === username && u.password === password
-        );
-
-        if (user) {
-          setUser({ id: user.id, username: user.username });
-          console.log(user);
-          setSnackbar({
-            open: true,
-            message: "Inloggning lyckades!",
-            severity: "success",
-          });
-          navigate("/profile");
-        } else {
-          setSnackbar({
-            open: true,
-            message: "Fel användarnamn eller lösenord",
-            severity: "error",
-          });
-        }
-      })
-      .catch((error) => {
-        setSnackbar({
-          open: true,
-          message: "Ett fel uppstod, försök igen",
-          severity: "error",
-        });
-        console.error(error);
-      });
-  };
 
   const handleCloseSnackbar = () => {
     setSnackbar({ ...snackbar, open: false });
@@ -67,37 +24,14 @@ function LoginPage() {
 
   return (
     <div className="login-page">
-      <Typography variant="h4" component="h1">
-        Logga in
-      </Typography>
-      <form id="login-form" onSubmit={handleLogin}>
-        <TextField
-          label="Användarnamn"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <TextField
-          label="Lösenord"
-          type="password"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button
-          variant="contained"
-          type="submit"
-          disabled={username.length === 0 || password.length === 0}
-        >
-          Logga in
-        </Button>
-      </form>
+      <Suspense fallback={<div>Laddar formulär...</div>}>
+        <LoginForm setUser={setUser} setSnackbar={setSnackbar} />
+      </Suspense>
 
-      <Typography variant="body2" sx={{ mt: 1, mb: 2 }}>
+      <Typography
+        variant="body2"
+        sx={{ margin: 1, mb: 3, textAlign: "center" }}
+      >
         Inte medlem?
         <MuiLink component={Link} to="/register" sx={{ ml: 0.5 }}>
           Skapa konto här istället.

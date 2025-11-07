@@ -6,7 +6,6 @@ DROP TABLE IF EXISTS testQuestion CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS answers CASCADE;
 
-
 CREATE TABLE users (
   id serial PRIMARY KEY,
   username TEXT UNIQUE NOT NULL,
@@ -56,6 +55,8 @@ CREATE TABLE answers (
 
 );
 
+CREATE INDEX users_username ON users (username);
+
 INSERT INTO testQuestion(question)
 VALUES
 ('Innehöll meddelandet en länk som du uppmanades att klicka på?'),
@@ -76,7 +77,7 @@ INSERT INTO reportedLinks (link, freetext) VALUES ('www.scam.com', 'internetbedr
 
 INSERT INTO testResults (user_id, suspect_details, result) VALUES ( 1, '077-8137813', 13);
 
-SELECT * FROM users;
+EXPLAIN ANALYZE SELECT * FROM users;
 SELECT * FROM reportedPhoneNumbers;
 SELECT * FROM reportedLinks;
 SELECT * FROM testResults;

@@ -5,6 +5,7 @@ function Footer() {
       <ul>
         <li>Användarvillkor</li>
         <li>Integritetspolicy</li>
+        <li>Om webbplatsen</li>
       </ul>
     </footer>
   );
