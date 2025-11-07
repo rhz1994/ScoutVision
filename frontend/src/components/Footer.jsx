@@ -5,7 +5,13 @@ function Footer() {
     <footer id="footer" className="footer">
       <ul>
         <li>
-          <Link to={"terms-and-conditions"}>Användarvillkor</Link>
+          <Link
+            className="secondary-color"
+            style={{ textDecoration: "none" }}
+            to={"terms-and-conditions"}
+          >
+            Användarvillkor
+          </Link>
         </li>
         <li>Om webbplatsen</li>
       </ul>

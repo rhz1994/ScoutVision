@@ -63,7 +63,7 @@ function Result() {
               <Typography>
                 Telekområdgivarna arrangerar ett gemensamt nummer dit du kan
                 rapportera ditt sms till de stora telefonoperatörerna. Du
-                vidarebefodrar sms:et till nummer 7725.
+                vidarebefodrar sms:et till nummer 7726.
               </Typography>
             </>
           )}
