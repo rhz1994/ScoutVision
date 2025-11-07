@@ -74,11 +74,10 @@ app.post("/api/users", async (req, res) => {
       RETURNING *;
     `;
 
-    try {
-      const checkResult = await client.query(checkSql, [username]);
-      if (checkResult.rows.length > 0) {
-        throw new Error("Det finns redan ett konto med samma användarnamn");
-      }
+    const checkResult = await client.query(checkSql, [username]);
+    if (checkResult.rows.length > 0) {
+      throw new Error("Det finns redan ett konto med samma användarnamn");
+    }
     try {
       const checkResult = await client.query(checkSql, [username]);
       if (checkResult.rows.length > 0) {
