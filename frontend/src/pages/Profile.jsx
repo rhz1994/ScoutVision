@@ -29,6 +29,8 @@ function Profile() {
     if (!isLoggedIn) navigate("/login");
   }, [isLoggedIn, navigate]);
 
+  // TODO använda tanStack query
+
   useEffect(() => {
     fetch(`/api/testResults/${user.id}`)
       .then((res) => res.json())
