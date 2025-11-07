@@ -11,16 +11,20 @@ services:
       database:
         condition: service_healthy
     environment:
-      - PGURI=postgres://postgres:9099@database/postgres
+      - PGURI=${PGURI}
 
     ports:
       - "3000:3000"
   database:
     environment:
-      - POSTGRES_PASSWORD=9099
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    image: postgres
+
     healthcheck:
-      interval: 1s
+      interval: 5s
+      retries: 5
       test: "pg_isready --username=postgres"
-    image: postgres:17
+
     volumes:
       - ./data:/var/lib/postgresql
+      - ./backend/docker-entrypoint:/docker-entrypoint-initdb.d
