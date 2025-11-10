@@ -57,8 +57,7 @@ function TermsAndConditions() {
                 dina uppgifter till ett land utanför EU.
               </Typography>
               <Typography variant="p" component="div">
-                Personuppgiftsansvarig är Rasmus Hanzén och Richard Mattsson. Du
-                har rätt att kontakta oss om du vill ha ut information om de
+                Du har rätt att kontakta oss om du vill ha ut information om de
                 uppgifter vi har om dig, för att begära rättelse, överföring
                 eller för att begära att vi begränsar behandlingen, för att göra
                 invändningar eller begära radering av dina uppgifter.
@@ -67,10 +66,10 @@ function TermsAndConditions() {
                 Kontakt
               </Typography>
               <Typography variant="p" component="div">
-                rasmus.hanzen@iths.se
+                Dataskyddsombud: rasmus.hanzen@iths.se
               </Typography>
               <Typography variant="p" component="div">
-                richard.mattsson@iths.se.
+                Personuppgiftsansvarig: richard.mattsson@iths.se.
               </Typography>
             </CardContent>
           </Card>
