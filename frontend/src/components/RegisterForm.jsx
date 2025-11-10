@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -100,8 +100,19 @@ function RegisterForm({ setSnackbar }) {
                   onChange={(e) => setAcceptTerms(e.target.checked)}
                 />
               }
-              label="Jag godkänner villkoren"
+              label={
+                <>
+                  Jag godkänner{" "}
+                  <Link
+                    to="/terms-and-conditions"
+                    style={{ textDecoration: "none", color: "#1976d2" }}
+                  >
+                    användarvillkoren
+                  </Link>
+                </>
+              }
             />
+
             <Button
               variant="contained"
               type="submit"

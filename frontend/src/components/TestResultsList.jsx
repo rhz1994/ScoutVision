@@ -22,19 +22,20 @@ function TestResultsList() {
       )}
       {error && <span>Något gick fel med att hämta datan.</span>}
 
-      {data.map((result) => (
-        <List key={result.id} sx={{ borderBottom: "1px solid black" }}>
-          <ListItem>
-            <ListItemText primary="Test id" secondary={result.result} />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary="Resultat:" secondary={result.result} />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary="Datum:" secondary={result.created_at} />
-          </ListItem>
-        </List>
-      ))}
+      {data &&
+        data.map((result) => (
+          <List key={result.id} sx={{ borderBottom: "1px solid black" }}>
+            <ListItem>
+              <ListItemText primary="Test id" secondary={result.result} />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="Resultat:" secondary={result.result} />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary="Datum:" secondary={result.created_at} />
+            </ListItem>
+          </List>
+        ))}
     </>
   );
 }
