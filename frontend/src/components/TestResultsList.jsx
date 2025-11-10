@@ -15,6 +15,8 @@ function TestResultsList() {
       fetch(`/api/testResults/${user.id}`).then((result) => result.json()),
   });
 
+  console.log(data);
+
   return (
     <>
       {isPending && (
@@ -22,10 +24,10 @@ function TestResultsList() {
       )}
       {error && <span>Något gick fel med att hämta datan.</span>}
 
-      {data &&
-        data.map((result) => (
-          <Card>
-            <CardContent sx={{ height: "100%" }}>
+      {data && data.length > 0 && (
+        <Card>
+          <CardContent sx={{ height: "100%" }}>
+            {data.map((result) => (
               <List key={result.id} sx={{ borderBottom: "1px solid black" }}>
                 <ListItem>
                   <ListItemText primary="Test id" secondary={result.result} />
@@ -40,9 +42,10 @@ function TestResultsList() {
                   />
                 </ListItem>
               </List>
-            </CardContent>
-          </Card>
-        ))}
+            ))}
+          </CardContent>
+        </Card>
+      )}
     </>
   );
 }

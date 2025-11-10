@@ -28,12 +28,6 @@ function Profile() {
     if (!isLoggedIn) navigate("/login");
   }, [isLoggedIn, navigate]);
 
-  // const { data, isPending } = useQuery({
-  //   queryKey: ["testResults"],
-  //   queryFn: () =>
-  //     fetch(`/api/testResults/${user.id}`).then((result) => result.json()),
-  // });
-
   const handleCloseSnackbar = () => setSnackbar({ ...snackbar, open: false });
 
   const handleDeleteClick = () => setOpenDeleteDialog(true);

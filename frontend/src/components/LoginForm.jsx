@@ -5,13 +5,23 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Visibility from "@mui/icons-material/Visibility";
 
 import CardContent from "@mui/material/CardContent";
+import {
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from "@mui/material";
 
 function LoginForm({ setUser, setSnackbar }) {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -68,21 +78,39 @@ function LoginForm({ setUser, setSnackbar }) {
             onSubmit={handleLogin}
             style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
           >
-            <TextField
-              label="Användarnamn"
-              variant="outlined"
-              fullWidth
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <TextField
-              label="Lösenord"
-              type="password"
-              variant="outlined"
-              fullWidth
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <FormControl sx={{ m: 1 }} variant="outlined">
+              <InputLabel htmlFor="username">Användarnamn</InputLabel>
+              <OutlinedInput
+                id="username"
+                label="Användarnamn"
+                type="text"
+                variant="outlined"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </FormControl>
+
+            <FormControl sx={{ m: 1 }} variant="outlined">
+              <InputLabel htmlFor="password">Lösenord</InputLabel>
+              <OutlinedInput
+                id="password"
+                label="Lösenord"
+                type={showPassword ? "text" : "password"}
+                variant="outlined"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      edge="end"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
             <Button
               variant="contained"
               type="submit"
