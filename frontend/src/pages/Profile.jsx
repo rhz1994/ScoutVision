@@ -100,14 +100,9 @@ function Profile() {
             )}
           </CardContent>
         </Card>
-
-        <Card>
-          <CardContent sx={{ height: "100%" }}>
-            <Suspense fallback={<Typography>Laddar resultat...</Typography>}>
-              <TestResultsList />
-            </Suspense>
-          </CardContent>
-        </Card>
+        <Suspense fallback={<Typography>Laddar resultat...</Typography>}>
+          <TestResultsList />
+        </Suspense>
       </Box>
 
       <Snackbar

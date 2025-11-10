@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import { CircularProgress } from "@mui/material";
+import { Card, CardContent, CircularProgress } from "@mui/material";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useQuery } from "@tanstack/react-query";
@@ -22,19 +22,27 @@ function TestResultsList() {
       )}
       {error && <span>Något gick fel med att hämta datan.</span>}
 
-      {data.map((result) => (
-        <List key={result.id} sx={{ borderBottom: "1px solid black" }}>
-          <ListItem>
-            <ListItemText primary="Test id" secondary={result.result} />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary="Resultat:" secondary={result.result} />
-          </ListItem>
-          <ListItem>
-            <ListItemText primary="Datum:" secondary={result.created_at} />
-          </ListItem>
-        </List>
-      ))}
+      {data &&
+        data.map((result) => (
+          <Card>
+            <CardContent sx={{ height: "100%" }}>
+              <List key={result.id} sx={{ borderBottom: "1px solid black" }}>
+                <ListItem>
+                  <ListItemText primary="Test id" secondary={result.result} />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Resultat:" secondary={result.result} />
+                </ListItem>
+                <ListItem>
+                  <ListItemText
+                    primary="Datum:"
+                    secondary={result.created_at}
+                  />
+                </ListItem>
+              </List>
+            </CardContent>
+          </Card>
+        ))}
     </>
   );
 }
