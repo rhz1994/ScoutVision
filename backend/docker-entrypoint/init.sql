@@ -45,6 +45,15 @@ CREATE TABLE testResults (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+CREATE TABLE wallPosts {
+  id serial PRIMARY KEY,
+  user_id INTEGER,
+  phone_number TEXT UNIQUE NOT NULL,
+  free_text TEXT;
+  created_at TIMESTAMP DEFAULT now(),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+}
+
 CREATE INDEX users_username ON users (username);
 
 
@@ -64,6 +73,8 @@ INSERT INTO reportedPhoneNumbers (phone_number, freetext) VALUES ('077-8137813',
 INSERT INTO reportedLinks (link, freetext) VALUES ('www.scam.com', 'internetbedrägeri');
 
 INSERT INTO testResults (user_id, suspect_details, result) VALUES ( 1, '077-8137813', 13);
+
+INSERT INTO wallPosts (user_id, free_text, phone_number) VALUES (1, 'Svara inte på detta nummret!!!', 077-8137813 )
 
 EXPLAIN ANALYZE SELECT * FROM users;
 SELECT * FROM reportedPhoneNumbers;

@@ -17,9 +17,18 @@ app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 3000;
 
-app.get("/api/users", async (req, res) => {
+app.get("/api/users", async (_req, res) => {
   try {
     const { rows } = await client.query("SELECT * FROM users;");
+    res.send(rows);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/api/wall", async (_req, res) => {
+  try {
+    const { rows } = await client.query("SELECT * FROM wall;");
     res.send(rows);
   } catch (err) {
     console.log(err);

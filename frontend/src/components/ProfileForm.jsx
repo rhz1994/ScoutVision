@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 function ProfileForm({ user, setUser, setIsEditing, setSnackbar }) {
   const [username, setUsername] = useState(user.username || "");
@@ -50,14 +51,16 @@ function ProfileForm({ user, setUser, setIsEditing, setSnackbar }) {
         label="Användarnamn"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
+        sx={{ mr: 1 }}
       />
       <TextField
         type="password"
         label="Nytt lösenord"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        sx={{ mr: 1 }}
       />
-      <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+      <Button type="submit" variant="contained">
         Spara ändringar
       </Button>
       <Button variant="text" onClick={() => setIsEditing(false)} sx={{ mt: 1 }}>
