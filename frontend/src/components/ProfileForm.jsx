@@ -1,7 +1,6 @@
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 
 function ProfileForm({ user, setUser, setIsEditing, setSnackbar }) {
   const [username, setUsername] = useState(user.username || "");

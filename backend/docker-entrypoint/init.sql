@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS reportedphonenumbers CASCADE;
 DROP TABLE IF EXISTS testResults CASCADE;
 DROP TABLE IF EXISTS testQuestion CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS wallPosts CASCADE;
 
 
 CREATE TABLE users (
@@ -45,14 +46,14 @@ CREATE TABLE testResults (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE wallPosts {
+CREATE TABLE wallPosts (
   id serial PRIMARY KEY,
-  user_id INTEGER,
-  phone_number TEXT UNIQUE NOT NULL,
-  free_text TEXT;
-  created_at TIMESTAMP DEFAULT now(),
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-}
+  report_count INTEGER DEFAULT 1,
+  phone_number TEXT NOT NULL,
+  free_text TEXT NOT NULL,
+  severity TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT now()
+);
 
 CREATE INDEX users_username ON users (username);
 
@@ -74,10 +75,11 @@ INSERT INTO reportedLinks (link, freetext) VALUES ('www.scam.com', 'internetbedr
 
 INSERT INTO testResults (user_id, suspect_details, result) VALUES ( 1, '077-8137813', 13);
 
-INSERT INTO wallPosts (user_id, free_text, phone_number) VALUES (1, 'Svara inte på detta nummret!!!', 077-8137813 )
+INSERT INTO wallPosts (free_text, phone_number, severity) VALUES ('Svara inte på detta numret!!!', '077-8137813', 'red' ), ('Ringer hela tiden', '071-121212', 'yellow'), ('Påstår sig komma från Kivra', '08-121212', 'red'), ('Påstår sig komma från Kivra nr2', '08-121212', 'red');
 
 EXPLAIN ANALYZE SELECT * FROM users;
 SELECT * FROM reportedPhoneNumbers;
 SELECT * FROM reportedLinks;
 SELECT * FROM testResults;
 SELECT * FROM testQuestion;
+SELECT * FROM wallPosts;
