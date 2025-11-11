@@ -89,8 +89,6 @@ function CheckboxCard(props) {
             style={{
               flexGrow: "1fr",
               display: "flex",
-              // minWidth: "200px",
-              // border: "1px solid black",
             }}
           >
             {answeralternative.map((item) => (

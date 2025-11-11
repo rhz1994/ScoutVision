@@ -3,9 +3,18 @@ import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 
 import "./Hero.css";
+import { useState } from "react";
+import { Box } from "@mui/material";
 
 function Hero() {
+  const [displayStart, setDisplayStart] = useState("block");
+  const [displayChoice, setDisplayChoice] = useState("none");
   const navigate = useNavigate();
+
+  function handleClick() {
+    setDisplayChoice("block");
+    setDisplayStart("none");
+  }
 
   return (
     <section className="primary-color hero-section">
@@ -21,20 +30,50 @@ function Hero() {
           skydda dig.
         </p>
       </div>
+      <div style={{ display: displayStart }}>
+        <Button
+          onClick={handleClick}
+          variant="contained"
+          color="contrast"
+          size="large"
+          sx={{
+            ":hover": { bgcolor: "contrast.light" },
+            fontWeight: 600,
+            padding: "20px",
+          }}
+        >
+          Starta testet
+        </Button>
+      </div>
 
-      <Button
-        onClick={() => navigate("/test/question=1")}
-        variant="contained"
-        color="contrast"
-        size="large"
-        sx={{
-          ":hover": { bgcolor: "contrast.light" },
-          fontWeight: 600,
-          padding: "20px",
-        }}
-      >
-        Starta testet
-      </Button>
+      <Box style={{ display: displayChoice }}>
+        <Button
+          onClick={() => navigate("/test/question=1")}
+          variant="contained"
+          color="contrast"
+          size="large"
+          sx={{
+            ":hover": { bgcolor: "contrast.light" },
+            fontWeight: 600,
+            padding: "20px",
+          }}
+        >
+          SMS
+        </Button>
+        <Button
+          onClick={() => navigate("/testPhone/question=1")}
+          variant="contained"
+          color="contrast"
+          size="large"
+          sx={{
+            ":hover": { bgcolor: "contrast.light" },
+            fontWeight: 600,
+            padding: "20px",
+          }}
+        >
+          Telefon
+        </Button>
+      </Box>
     </section>
   );
 }

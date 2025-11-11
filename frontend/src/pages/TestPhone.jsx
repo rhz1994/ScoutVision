@@ -5,14 +5,16 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-function Test() {
+function TestPhone() {
   const { pathname } = useLocation();
   const questionNumber = pathname.split("=")[1] - 1;
 
+  console.log("testphone");
+
   const { data, isPending, error } = useQuery({
-    queryKey: ["questions"],
+    queryKey: ["questionsPhone"],
     staleTime: 1000 * 60 * 30,
-    queryFn: () => fetch(`/api/testQuestion`).then((r) => r.json()),
+    queryFn: () => fetch(`/api/testQuestionPhone`).then((r) => r.json()),
   });
 
   return (
@@ -32,4 +34,4 @@ function Test() {
     </div>
   );
 }
-export default Test;
+export default TestPhone;

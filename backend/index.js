@@ -35,6 +35,15 @@ app.get("/api/testQuestion", async (_req, res) => {
   }
 });
 
+app.get("/api/testQuestionPhone", async (_req, res) => {
+  try {
+    const { rows } = await client.query("SELECT * FROM testQuestionPhone;");
+    res.send(rows);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.get("/api/testResults/:id", async (req, res) => {
   const { id } = req.params;
   const { rows } = await client.query(

@@ -3,6 +3,7 @@ import { createHashRouter, Outlet, RouterProvider } from "react-router-dom";
 
 const Home = lazy(() => import("../pages/Home"));
 const Test = lazy(() => import("../pages/Test"));
+const TestPhone = lazy(() => import("../pages/TestPhone"));
 const Profile = lazy(() => import("../pages/Profile"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
 const Register = lazy(() => import("../pages/Register"));
@@ -31,6 +32,14 @@ function Router() {
           element: (
             <Suspense fallback={<div>Laddar...</div>}>
               <Home />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/testPhone/:question",
+          element: (
+            <Suspense fallback={<div>Laddar...</div>}>
+              <TestPhone />
             </Suspense>
           ),
         },
