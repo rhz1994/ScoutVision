@@ -17,9 +17,18 @@ app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 3000;
 
-app.get("/api/users", async (req, res) => {
+app.get("/api/users", async (_req, res) => {
   try {
     const { rows } = await client.query("SELECT * FROM users;");
+    res.send(rows);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/api/wallPosts", async (_req, res) => {
+  try {
+    const { rows } = await client.query("SELECT * FROM wallPosts;");
     res.send(rows);
   } catch (err) {
     console.log(err);
@@ -135,6 +144,24 @@ app.post("/api/testResult/:id", async (req, res) => {
       [id, result]
     );
 
+    res.send(rows);
+  } catch (err) {
+    res.send(err.message);
+  }
+});
+
+app.post("/api/wallPosts", async (req, res) => {
+  const { sender, comment, rating } = req.body;
+
+  if (!sender && !comment && !rating) {
+    return res.status(400).json({ message: "Alla fält måste fyllas i" });
+  }
+
+  try {
+    const { rows } = await client.query(
+      `INSERT INTO wallPosts (phone_number, free_text, severity) VALUES ($1, $2, $3) RETURNING * `,
+      [sender, comment, rating]
+    );
     res.send(rows);
   } catch (err) {
     res.send(err.message);

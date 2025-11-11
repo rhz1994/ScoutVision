@@ -55,14 +55,13 @@ function Profile() {
     <>
       <Box
         sx={{
-          width: "100%",
           display: "flex",
           gap: 2,
           justifyContent: "center",
           padding: "2rem",
         }}
       >
-        <Card sx={{ padding: 5, mb: 4 }}>
+        <Card sx={{ padding: 3, mb: 4 }}>
           <CardContent
             sx={{ gap: 3, display: "flex", flexDirection: "column" }}
           >
@@ -94,9 +93,11 @@ function Profile() {
             )}
           </CardContent>
         </Card>
-        <Suspense fallback={<Typography>Laddar resultat...</Typography>}>
-          <TestResultsList />
-        </Suspense>
+        {!isEditing && (
+          <Suspense fallback={<Typography>Laddar resultat...</Typography>}>
+            <TestResultsList />
+          </Suspense>
+        )}
       </Box>
 
       <Snackbar

@@ -50,14 +50,16 @@ function ProfileForm({ user, setUser, setIsEditing, setSnackbar }) {
         label="Användarnamn"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
+        sx={{ mr: 1 }}
       />
       <TextField
         type="password"
         label="Nytt lösenord"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        sx={{ mr: 1 }}
       />
-      <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+      <Button type="submit" variant="contained">
         Spara ändringar
       </Button>
       <Button variant="text" onClick={() => setIsEditing(false)} sx={{ mt: 1 }}>

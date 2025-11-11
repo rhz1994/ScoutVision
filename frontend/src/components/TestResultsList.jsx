@@ -25,8 +25,10 @@ function TestResultsList() {
       {error && <span>Något gick fel med att hämta datan.</span>}
 
       {data && data.length > 0 && (
-        <Card>
-          <CardContent sx={{ height: "100%" }}>
+        <Card sx={{ mb: 4 }}>
+          <CardContent
+            sx={{ gap: 3, display: "flex", flexDirection: "column" }}
+          >
             {data.map((result) => (
               <List key={result.id} sx={{ borderBottom: "1px solid black" }}>
                 <ListItem>
