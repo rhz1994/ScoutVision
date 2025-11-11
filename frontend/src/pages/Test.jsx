@@ -1,34 +1,86 @@
 import "./Test.css";
 import CheckboxCard from "../components/CheckboxCard";
-import CircularProgress from "@mui/material/CircularProgress";
-
-import { useLocation } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Box, Button, Card, CardContent, CardHeader } from "@mui/material";
 
 function Test() {
-  const { pathname } = useLocation();
-  const questionNumber = pathname.split("=")[1] - 1;
+  const navigate = useNavigate();
 
-  const { data, isPending, error } = useQuery({
-    queryKey: ["questions"],
-    staleTime: 1000 * 60 * 30,
-    queryFn: () => fetch(`/api/testQuestion`).then((r) => r.json()),
-  });
+  const [displayTest, setDisplayTest] = useState(false);
+  const [testChoiceContainer, setTestChoiceContainer] = useState("block");
 
+  function handleClickSms() {
+    navigate("/test/sms/number=1");
+
+    setDisplayTest(true);
+    setTestChoiceContainer("none");
+  }
+
+  function handleClickPhone() {
+    navigate("/test/telefon/number=1");
+
+    setDisplayTest(true);
+    setTestChoiceContainer("none");
+  }
   return (
     <div id="test-container" className="primary-color">
-      {isPending && (
-        <CircularProgress color="contrast" thickness={7} size={75} />
-      )}
-      {error && <span>Något gick fel med att hämta datan.</span>}
+      <Card
+        variant="outlined"
+        sx={{
+          width: "500px",
+          display: testChoiceContainer,
+          justifyContent: "space-between",
+          border: "1px solid blue",
+        }}
+      >
+        <CardContent>
+          <CardHeader
+            sx={{ textAlign: "center" }}
+            title="Test angående sms eller telefon?"
+          />
 
-      {data && (
-        <CheckboxCard
-          key={data[questionNumber].id}
-          question={data[questionNumber].question}
-          id={data[questionNumber].id}
-        />
-      )}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <Button
+              variant="contained"
+              color="contrast"
+              size="medium"
+              sx={{
+                ":hover": { bgcolor: "contrast.light" },
+                fontWeight: 600,
+                padding: "10px",
+                flexGrow: "auto",
+                minWidth: "125px",
+              }}
+              onClick={handleClickSms}
+            >
+              SMS
+            </Button>
+            <Button
+              variant="contained"
+              color="contrast"
+              size="medium"
+              sx={{
+                ":hover": { bgcolor: "contrast.light" },
+                fontWeight: 600,
+                padding: "10px",
+                flexGrow: "auto",
+                minWidth: "125px",
+              }}
+              onClick={handleClickPhone}
+            >
+              Telefon
+            </Button>
+          </Box>
+        </CardContent>
+      </Card>
+
+      {displayTest && <CheckboxCard />}
     </div>
   );
 }

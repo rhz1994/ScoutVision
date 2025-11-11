@@ -15,12 +15,13 @@ function TestResultsList() {
       fetch(`/api/testResults/${user.id}`).then((result) => result.json()),
   });
 
-  console.log(data);
-
   return (
     <>
       {isPending && (
-        <CircularProgress color="contrast" thickness={7} size={75} />
+        <>
+          <p>Laddar tidigare gjorda tester</p>
+          <CircularProgress color="contrast" thickness={7} size={75} />
+        </>
       )}
       {error && <span>Något gick fel med att hämta datan.</span>}
 

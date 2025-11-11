@@ -36,15 +36,7 @@ function Router() {
           ),
         },
         {
-          path: "/testPhone/:question",
-          element: (
-            <Suspense fallback={<div>Laddar...</div>}>
-              <TestPhone />
-            </Suspense>
-          ),
-        },
-        {
-          path: "/test/:question",
+          path: "/test/:question?/:number?",
           element: (
             <Suspense fallback={<div>Laddar...</div>}>
               <Test />
