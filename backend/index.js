@@ -35,9 +35,27 @@ app.get("/api/wallPosts", async (_req, res) => {
   }
 });
 
-app.get("/api/testQuestion", async (_req, res) => {
+app.get("/api/test", async (_req, res) => {
   try {
     const { rows } = await client.query("SELECT * FROM testQuestion;");
+    res.send(rows);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/api/test/sms", async (_req, res) => {
+  try {
+    const { rows } = await client.query("SELECT * FROM testQuestion;");
+    res.send(rows);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/api/test/telefon", async (_req, res) => {
+  try {
+    const { rows } = await client.query("SELECT * FROM testQuestionPhone;");
     res.send(rows);
   } catch (err) {
     console.log(err);

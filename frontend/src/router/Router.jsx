@@ -6,7 +6,7 @@ const Test = lazy(() => import("../pages/Test"));
 const Profile = lazy(() => import("../pages/Profile"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
 const Register = lazy(() => import("../pages/Register"));
-const Result = lazy(() => import("../pages/Result"));
+const Result = lazy(() => import("../components/Result"));
 const TermsAndConditions = lazy(() => import("../pages/TermsAndConditions"));
 
 import Navbar from "../components/Navbar";
@@ -35,7 +35,7 @@ function Router() {
           ),
         },
         {
-          path: "/test/:question",
+          path: "/test/:question?/:number?",
           element: (
             <Suspense fallback={<div>Laddar...</div>}>
               <Test />
