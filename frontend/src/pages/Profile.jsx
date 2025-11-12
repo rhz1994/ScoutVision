@@ -56,8 +56,9 @@ function Profile() {
       <Box
         sx={{
           display: "flex",
-          gap: 2,
+          gap: 5,
           justifyContent: "center",
+          alignItems: "flex-start",
           padding: "2rem",
         }}
       >

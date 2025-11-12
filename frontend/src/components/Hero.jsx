@@ -42,7 +42,7 @@ function Hero() {
             padding: "15px",
           }}
         >
-          {result > 0 ? "Testa igen" : "Starta test !"}
+          {result > 0 ? "Testa igen" : "Starta test"}
         </Button>
       </div>
     </section>
