@@ -130,7 +130,7 @@ function RegisterForm({ setSnackbar }) {
               }
               label={
                 <>
-                  Jag godkänner{" "}
+                  Jag godkänner
                   <Link
                     to="/terms-and-conditions"
                     style={{ textDecoration: "none", color: "#1976d2" }}

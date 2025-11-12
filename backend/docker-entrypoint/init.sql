@@ -75,7 +75,7 @@ INSERT INTO reportedLinks (link, freetext) VALUES ('www.scam.com', 'internetbedr
 
 INSERT INTO testResults (user_id, suspect_details, result) VALUES ( 1, '077-8137813', 13);
 
-INSERT INTO wallPosts (free_text, phone_number, severity) VALUES ('Svara inte på detta numret!!!', '077-8137813', 'red' ), ('Ringer hela tiden', '071-121212', 'yellow'), ('Påstår sig komma från Kivra', '08-121212', 'red'), ('Påstår sig komma från Kivra nr2', '08-121212', 'red');
+INSERT INTO wallPosts (free_text, phone_number, severity) VALUES ('Svara inte på detta numret!!!', '077-8137813', 'red' ), ('Ringer hela tiden', '071-121212', 'yellow'), ('Påstår sig komma från Kivra', '08-121212', 'red'), ('Påstår sig komma från Kivra nr2', '08-121212', 'orange');
 
 EXPLAIN ANALYZE SELECT * FROM users;
 SELECT * FROM reportedPhoneNumbers;

@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
@@ -11,9 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import FormControl from "@mui/material/FormControl";
-
 import InputLabel from "@mui/material/InputLabel";
-
 import { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
 
@@ -34,7 +31,6 @@ function Wall() {
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
-        console.log(data);
       });
   }, []);
 
@@ -53,7 +49,7 @@ function Wall() {
       setIsPosting(false);
       setSnackbar({
         open: true,
-        message: "Inlägget skickades!",
+        message: "Du rapporterade avsändaren",
         severity: "success",
       });
     } else {
@@ -71,64 +67,106 @@ function Wall() {
 
   return (
     <>
-      <Box sx={{ maxWidth: "500px" }}>
-        {posts && posts.length > 0 && !isPosting && (
-          <Card sx={{ m: 2 }}>
-            <CardContent sx={{ display: "flex", flexDirection: "column" }}>
-              <Typography component={"h1"} sx={{ mb: 1 }}>
-                Rapporterade bedrägerier
-              </Typography>
-              <Button
-                variant="contained"
-                label={" Rapportera ett misstänkt bedrägeri"}
+      <Box
+        sx={{
+          maxWidth: "600px",
+          mx: "auto",
+          p: 3,
+          background: "linear-gradient(180deg, #fefefe, #f5f5f5)",
+        }}
+      >
+        {!isPosting && (
+          <>
+            <Typography
+              component="h1"
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                backgroundColor: "#E9DB5D",
+                width: "fit-content",
+                m: "auto",
+                mb: 3,
+                textAlign: "center",
+              }}
+            >
+              Rapporterade bedrägerier
+            </Typography>
+
+            <Button
+              variant="contained"
+              sx={{
+                display: "block",
+                mx: "auto",
+                mb: 3,
+                color: "#000",
+              }}
+              onClick={() => setIsPosting(true)}
+            >
+              Rapportera själv
+            </Button>
+
+            {posts.length === 0 && (
+              <Typography
+                variant="body2"
                 sx={{
-                  width: "fit-content",
+                  textAlign: "center",
+                  mt: 4,
                 }}
-                onClick={() => setIsPosting(true)}
               >
-                Rapportera själv
-              </Button>
-              {posts.map((post) => (
-                <List
-                  key={post.id}
-                  sx={{
-                    borderBottom: "1px solid black",
-                    display: "flex",
-                    flexDirection: "column",
-                    p: 0,
-                    m: 0,
-                  }}
+                Inga rapporter ännu
+              </Typography>
+            )}
+
+            {posts.map((post) => (
+              <Card
+                key={post.id}
+                sx={{
+                  m: 1,
+                  p: 2,
+                }}
+              >
+                <ListItem sx={{ p: 0, mb: 1 }}>
+                  <ListItemText
+                    primary={
+                      <Typography sx={{ fontWeight: "bold" }}>
+                        Avsändare
+                      </Typography>
+                    }
+                    secondary={post.phone_number}
+                  />
+                  <Box
+                    sx={{
+                      width: 16,
+                      height: 16,
+                      borderRadius: "50%",
+                      bgcolor: post.severity,
+                      ml: 1,
+                    }}
+                  />
+                </ListItem>
+                <Typography>{post.free_text}</Typography>
+                <Typography
+                  variant="caption"
+                  color="text.disabled"
+                  sx={{ display: "block", mt: 1 }}
                 >
-                  <ListItem sx={{ pt: 0, pb: 0 }}>
-                    <ListItemText
-                      primary="Avsändare"
-                      secondary={post.phone_number}
-                    />
-                    <Box
-                      sx={{
-                        width: 20,
-                        height: 20,
-                        borderRadius: "50%",
-                        bgcolor: post.severity,
-                      }}
-                    />
-                  </ListItem>
-                  <ListItem sx={{ pt: 0, pb: 0 }}>
-                    <ListItemText primary="Info:" secondary={post.free_text} />
-                  </ListItem>
-                  <ListItem sx={{ pt: 0, pb: 0 }}>
-                    <ListItemText
-                      primary="Datum:"
-                      secondary={post.created_at}
-                    />
-                  </ListItem>
-                </List>
-              ))}
-            </CardContent>
-          </Card>
+                  {new Date(post.created_at).toLocaleDateString()}
+                </Typography>
+              </Card>
+            ))}
+          </>
         )}
+
         {isPosting && (
-          <Card sx={{ m: 2 }}>
+          <Card
+            sx={{
+              m: 2,
+              p: 3,
+              borderRadius: 3,
+              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+              backgroundColor: "#fff",
+            }}
+          >
             <CardContent
               sx={{ gap: 3, display: "flex", flexDirection: "column" }}
             >
@@ -145,8 +183,10 @@ function Wall() {
                   label="Kommentar"
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
+                  multiline
+                  minRows={3}
                 />
-                <FormControl variant="filled" sx={{ minWidth: 50, p: 1 }}>
+                <FormControl variant="filled" sx={{ minWidth: 120, p: 1 }}>
                   <InputLabel id="rate-sender-label">Risknivå</InputLabel>
                   <Select
                     labelId="rate-sender"
@@ -154,49 +194,25 @@ function Wall() {
                     value={rating}
                     onChange={(e) => setRating(e.target.value)}
                   >
-                    <MenuItem value={"green"}>
-                      <Box
-                        sx={{
-                          width: 20,
-                          height: 20,
-                          borderRadius: "50%",
-                          bgcolor: "green",
-                        }}
-                      />
-                    </MenuItem>
-                    <MenuItem value={"yellow"}>
-                      <Box
-                        sx={{
-                          width: 20,
-                          height: 20,
-                          borderRadius: "50%",
-                          bgcolor: "yellow",
-                        }}
-                      />
-                    </MenuItem>
-                    <MenuItem value={"red"}>
-                      <Box
-                        sx={{
-                          width: 20,
-                          height: 20,
-                          borderRadius: "50%",
-                          bgcolor: "red",
-                        }}
-                      />
-                    </MenuItem>
+                    <MenuItem value={"yellow"}>🟡 Låg risk</MenuItem>
+                    <MenuItem value={"orange"}>🟠 Medelrisk</MenuItem>
+                    <MenuItem value={"red"}>🔴 Hög risk</MenuItem>
                   </Select>
                 </FormControl>
-                <Button type="submit" variant="contained">
-                  Rapportera
-                </Button>
-                <Button variant="text" onClick={() => setIsPosting(false)}>
-                  Avbryt
-                </Button>
+                <Box sx={{ display: "flex", gap: 1 }}>
+                  <Button type="submit" variant="contained">
+                    Rapportera
+                  </Button>
+                  <Button variant="text" onClick={() => setIsPosting(false)}>
+                    Avbryt
+                  </Button>
+                </Box>
               </form>
             </CardContent>
           </Card>
         )}
       </Box>
+
       <Snackbar
         open={snackbar.open}
         autoHideDuration={3000}
