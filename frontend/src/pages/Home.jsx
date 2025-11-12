@@ -19,7 +19,7 @@ function Home() {
           display: "grid",
           gridTemplateColumns: "3fr 1fr",
           gap: 3,
-          mt: 5,
+          mt: 2,
           p: 2,
         }}
       >

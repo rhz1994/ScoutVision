@@ -71,6 +71,21 @@ app.get("/api/testResults/:id", async (req, res) => {
   res.send(rows);
 });
 
+app.post("/api/testResult/:id", async (req, res) => {
+  const { result } = req.body;
+  const { id } = req.params;
+  try {
+    const { rows } = await client.query(
+      `INSERT INTO testResults (user_id, result) VALUES ($1, $2) RETURNING *`,
+      [id, result]
+    );
+
+    res.send(rows);
+  } catch (err) {
+    res.send(err.message);
+  }
+});
+
 app.post("/api/users", async (req, res) => {
   const { username, password } = req.body;
 
@@ -141,21 +156,6 @@ app.post("/api/login", async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Något gick fel vid inloggning" });
-  }
-});
-
-app.post("/api/testResult/:id", async (req, res) => {
-  const { result } = req.body;
-  const { id } = req.params;
-  try {
-    const { rows } = await client.query(
-      `INSERT INTO testResults (user_id, result) VALUES ($1, $2) RETURNING *`,
-      [id, result]
-    );
-
-    res.send(rows);
-  } catch (err) {
-    res.send(err.message);
   }
 });
 
