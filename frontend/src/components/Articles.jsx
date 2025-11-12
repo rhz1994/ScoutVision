@@ -3,10 +3,10 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-import img1 from "../assets/pexels-pixabay-39584.webp";
-import img2 from "../assets/pexels-thisisengineering-3861969.webp";
-import img3 from "../assets/pexels-joshsorenson-1714208.webp";
-import img4 from "../assets/pexels-kevin-ku-92347-577585.webp";
+import img1 from "../assets/pexels-pixabay-39584.jpg";
+import img2 from "../assets/pexels-thisisengineering-3861969.jpg";
+import img3 from "../assets/pexels-joshsorenson-1714208.jpg";
+import img4 from "../assets/pexels-kevin-ku-92347-577585.jpg";
 
 function Articles() {
   return (
