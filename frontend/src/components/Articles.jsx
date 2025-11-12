@@ -3,6 +3,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
+import img1 from "../assets/pexels-pixabay-39584.webp";
+import img2 from "../assets/pexels-thisisengineering-3861969.webp";
+import img3 from "../assets/pexels-joshsorenson-1714208.webp";
+import img4 from "../assets/pexels-kevin-ku-92347-577585.webp";
+
 function Articles() {
   return (
     <Box
@@ -31,7 +36,7 @@ function Articles() {
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundImage: `url('./src/assets/pexels-pixabay-39584.webp')`,
+            backgroundImage: `url(${img1})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             filter: "brightness(0.6)",
@@ -80,7 +85,7 @@ function Articles() {
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundImage: `url('./src/assets/pexels-thisisengineering-3861969.webp')`,
+            backgroundImage: `url(${img2})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             filter: "brightness(0.6)",
@@ -128,7 +133,7 @@ function Articles() {
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundImage: `url('./src/assets/pexels-joshsorenson-1714208.webp')`,
+            backgroundImage: `url(${img3})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             filter: "brightness(0.6)",
@@ -175,7 +180,7 @@ function Articles() {
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundImage: `url('./src/assets/pexels-kevin-ku-92347-577585.webp')`,
+            backgroundImage: `url(${img4})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             filter: "brightness(0.6)",
