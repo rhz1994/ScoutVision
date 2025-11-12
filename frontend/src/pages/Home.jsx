@@ -4,11 +4,16 @@ import Articles from "../components/Articles";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
+import Result from "../components/Result";
+import { useContext } from "react";
+import { ResultContext } from "../contexts/ResultContext";
 
 function Home() {
+  const { result } = useContext(ResultContext);
   return (
     <>
       <Hero />
+      {result && <Result />}
       <section style={{ display: "flex" }}>
         <Articles />
         <Wall />

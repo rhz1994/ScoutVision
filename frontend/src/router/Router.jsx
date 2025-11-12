@@ -3,11 +3,10 @@ import { createHashRouter, Outlet, RouterProvider } from "react-router-dom";
 
 const Home = lazy(() => import("../pages/Home"));
 const Test = lazy(() => import("../pages/Test"));
-const TestPhone = lazy(() => import("../pages/TestPhone"));
 const Profile = lazy(() => import("../pages/Profile"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
 const Register = lazy(() => import("../pages/Register"));
-const Result = lazy(() => import("../pages/Result"));
+const Result = lazy(() => import("../components/Result"));
 const TermsAndConditions = lazy(() => import("../pages/TermsAndConditions"));
 
 import Navbar from "../components/Navbar";

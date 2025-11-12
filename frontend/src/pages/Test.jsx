@@ -8,7 +8,7 @@ function Test() {
   const navigate = useNavigate();
 
   const [displayTest, setDisplayTest] = useState(false);
-  const [testChoiceContainer, setTestChoiceContainer] = useState("block");
+  const [testChoiceContainer, setTestChoiceContainer] = useState("flex");
 
   function handleClickSms() {
     navigate("/test/sms/number=1");
@@ -28,16 +28,16 @@ function Test() {
       <Card
         variant="outlined"
         sx={{
-          width: "500px",
+          minWidth: "600px",
           display: testChoiceContainer,
-          justifyContent: "space-between",
+          justifyContent: "center",
           border: "1px solid blue",
         }}
       >
-        <CardContent>
+        <CardContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           <CardHeader
             sx={{ textAlign: "center" }}
-            title="Test angående sms eller telefon?"
+            title="Har du blivit kontaktad via sms eller telefon?"
           />
 
           <Box

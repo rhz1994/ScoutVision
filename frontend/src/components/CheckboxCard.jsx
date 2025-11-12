@@ -37,18 +37,18 @@ function CheckboxCard() {
     setValue(event.target.value);
   };
 
-  const questionNumber = parseInt(pathname.split("=")[1]) + 1;
+  const questionNumber = parseInt(pathname.split("=")[1]);
   const questionIndex = parseInt(pathname.split("=")[1] - 1) || 0;
 
   function handleClick() {
     const testScore = result + parseInt(value);
     setResult(testScore);
 
-    if (questionNumber < 6) {
-      navigate(`${endpoint}number=${questionNumber}`);
+    if (questionNumber < 5) {
+      navigate(`${endpoint}number=${questionNumber + 1}`);
       setChecked(null);
     }
-    if (questionNumber > 5) {
+    if (questionNumber > 4) {
       if (user) {
         fetch(`/api/testResult/${user.id}`, {
           method: "POST",
@@ -61,8 +61,7 @@ function CheckboxCard() {
           .then((result) => console.log(result));
       }
 
-      navigate("/result");
-      setResult(null);
+      navigate("/");
     }
   }
 

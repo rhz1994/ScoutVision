@@ -12,7 +12,7 @@ function Navbar() {
   // const { pathname } = useLocation();
   // const { question } = useParams();
   const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -32,13 +32,6 @@ function Navbar() {
         <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
           <Button color="black" component={Link} to="/">
             Hem
-          </Button>
-          <Button color="black" component={Link} to="/test/question=1">
-            Test
-          </Button>
-
-          <Button color="black" component={Link} to="/result">
-            Resultat
           </Button>
         </Box>
 

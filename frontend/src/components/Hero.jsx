@@ -3,16 +3,24 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 
 import "./Hero.css";
+import { useContext } from "react";
+import { ResultContext } from "../contexts/ResultContext";
 
 function Hero() {
   const navigate = useNavigate();
+  const { result, setResult } = useContext(ResultContext);
+
+  function handleClick() {
+    setResult(null);
+    navigate("/test");
+  }
 
   return (
     <section className="primary-color hero-section">
       <div className="hero-div">
         <SafetyCheckIcon
           className="hero-child"
-          color="primary"
+          color="secondary"
           sx={{ fontSize: 100 }}
         />
         <p className="secondary-color hero-child" style={{ fontSize: "24px" }}>
@@ -23,17 +31,18 @@ function Hero() {
       </div>
       <div>
         <Button
-          onClick={() => navigate("/test")}
+          onClick={handleClick}
           variant="contained"
           color="contrast"
-          size="large"
+          size="medium"
           sx={{
             ":hover": { bgcolor: "contrast.light" },
             fontWeight: 600,
-            padding: "20px",
+            fontSize: "1em",
+            padding: "15px",
           }}
         >
-          Starta testet
+          {result > 0 ? "Testa igen" : "Starta test !"}
         </Button>
       </div>
     </section>
