@@ -10,10 +10,9 @@ function Footer() {
             style={{ textDecoration: "none" }}
             to={"terms-and-conditions"}
           >
-            Användarvillkor
+            Integritetspolicy
           </Link>
         </li>
-        <li>Om webbplatsen</li>
       </ul>
     </footer>
   );

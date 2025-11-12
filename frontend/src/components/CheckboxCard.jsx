@@ -19,8 +19,6 @@ function CheckboxCard() {
   const { result, setResult } = useContext(ResultContext);
   const [value, setValue] = useState(0);
   const { user } = useContext(UserContext);
-
-  console.log(pathname.split("number")[0]);
   const endpoint = pathname.split("number")[0];
 
   const { data, isPending, error } = useQuery({

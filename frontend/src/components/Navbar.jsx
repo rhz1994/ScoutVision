@@ -7,16 +7,19 @@ import { UserContext } from "../contexts/UserContext";
 import { AppBar, Toolbar, Button, Box } from "@mui/material";
 
 import "./Navbar.css";
+import { ResultContext } from "../contexts/ResultContext";
 
 function Navbar() {
   // const { pathname } = useLocation();
   // const { question } = useParams();
   const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const { setResult } = useContext(ResultContext);
   const { setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    setResult(null);
     setIsLoggedIn(false);
     navigate("/");
     setUser(null);
