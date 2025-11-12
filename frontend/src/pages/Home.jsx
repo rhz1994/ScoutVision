@@ -20,6 +20,7 @@ function Home() {
           gridTemplateColumns: "3fr 1fr",
           gap: 3,
           mt: 5,
+          p: 2,
         }}
       >
         <Box>

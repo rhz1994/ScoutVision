@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
@@ -32,7 +33,7 @@ function Wall() {
       .then((data) => {
         setPosts(data);
       });
-  }, []);
+  }, [isPosting]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,6 +47,8 @@ function Wall() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Något gick fel");
 
+      setComment("");
+      setSender("");
       setIsPosting(false);
       setSnackbar({
         open: true,
@@ -125,31 +128,30 @@ function Wall() {
                   p: 2,
                 }}
               >
-                <ListItem sx={{ p: 0, mb: 1 }}>
-                  <ListItemText
-                    primary={
-                      <Typography sx={{ fontWeight: "bold" }}>
-                        Avsändare
-                      </Typography>
-                    }
-                    secondary={post.phone_number}
-                  />
-                  <Box
-                    sx={{
-                      width: 16,
-                      height: 16,
-                      borderRadius: "50%",
-                      bgcolor: post.severity,
-                      ml: 1,
-                    }}
-                  />
-                </ListItem>
+                {" "}
+                <List>
+                  <ListItem sx={{ p: 0, mb: 1 }}>
+                    <ListItemText
+                      primary={
+                        <Typography sx={{ fontWeight: "bold" }}>
+                          Avsändare
+                        </Typography>
+                      }
+                      secondary={post.phone_number}
+                    />
+                    <Box
+                      sx={{
+                        width: 16,
+                        height: 16,
+                        borderRadius: "50%",
+                        bgcolor: post.severity,
+                        ml: 1,
+                      }}
+                    />
+                  </ListItem>
+                </List>
                 <Typography>{post.free_text}</Typography>
-                <Typography
-                  variant="caption"
-                  color="text.disabled"
-                  sx={{ display: "block", mt: 1 }}
-                >
+                <Typography>
                   {new Date(post.created_at).toLocaleDateString()}
                 </Typography>
               </Card>

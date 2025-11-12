@@ -42,7 +42,7 @@ function LoginForm({ setUser, setSnackbar }) {
           message: "Inloggning lyckades!",
           severity: "success",
         });
-        navigate("/profile");
+        navigate("/#");
       } else {
         setSnackbar({
           open: true,

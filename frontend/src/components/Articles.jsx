@@ -48,6 +48,7 @@ function Articles() {
         >
           <Typography
             className="hoverText"
+            component="h1"
             variant="h6"
             sx={{ fontWeight: "bold", mb: 1 }}
           >
@@ -97,6 +98,7 @@ function Articles() {
           <Typography
             className="hoverText"
             variant="h6"
+            component="h1"
             sx={{ fontWeight: "bold", mb: 1 }}
           >
             AI gör bedrägerier mer effektiva och trovärdiga
@@ -144,6 +146,7 @@ function Articles() {
           <Typography
             className="hoverText"
             variant="h6"
+            component="h1"
             sx={{ fontWeight: "bold", mb: 1 }}
           >
             Lösenordshanterare löser dina lösenordsproblem
@@ -190,6 +193,7 @@ function Articles() {
           <Typography
             className="hoverText"
             variant="h6"
+            component="h1"
             sx={{ fontWeight: "bold", mb: 1 }}
           >
             Så fungerar internet
