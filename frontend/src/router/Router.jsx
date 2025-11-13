@@ -1,13 +1,12 @@
 import { lazy, Suspense } from "react";
 import { createHashRouter, Outlet, RouterProvider } from "react-router-dom";
 
-const Home = lazy(() => import("../pages/Home"));
+import Home from "../pages/Home";
 const Test = lazy(() => import("../pages/Test"));
-const Profile = lazy(() => import("../pages/Profile"));
-const LoginPage = lazy(() => import("../pages/LoginPage"));
-const Register = lazy(() => import("../pages/Register"));
-const Result = lazy(() => import("../components/Result"));
-const TermsAndConditions = lazy(() => import("../pages/TermsAndConditions"));
+import Profile from "../pages/Profile";
+import LoginPage from "../pages/LoginPage";
+import Register from "../pages/Register";
+import TermsAndConditions from "../pages/TermsAndConditions";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -63,14 +62,6 @@ function Router() {
           element: (
             <Suspense fallback={<div>Laddar...</div>}>
               <Register />
-            </Suspense>
-          ),
-        },
-        {
-          path: "/result",
-          element: (
-            <Suspense fallback={<div>Laddar...</div>}>
-              <Result />
             </Suspense>
           ),
         },

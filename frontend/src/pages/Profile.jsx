@@ -10,8 +10,8 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
 const ProfileForm = lazy(() => import("../components/ProfileForm"));
-const TestResultsList = lazy(() => import("../components/TestResultsList"));
-const DeleteDialog = lazy(() => import("../components/DeleteDialog"));
+import TestResultsList from "../components/TestResultsList";
+import DeleteDialog from "../components/DeleteDialog";
 
 function Profile() {
   const { user, setUser, isLoggedIn } = useContext(UserContext);
@@ -94,11 +94,7 @@ function Profile() {
             )}
           </CardContent>
         </Card>
-        {!isEditing && (
-          <Suspense fallback={<Typography>Laddar resultat...</Typography>}>
-            <TestResultsList />
-          </Suspense>
-        )}
+        {!isEditing && <TestResultsList />}
       </Box>
 
       <Snackbar
