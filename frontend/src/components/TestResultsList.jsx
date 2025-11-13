@@ -1,4 +1,3 @@
-import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -41,7 +40,7 @@ function TestResultsList() {
                 <ListItem>
                   <ListItemText
                     primary="Datum:"
-                    secondary={result.created_at}
+                    secondary={new Date(result.created_at).toLocaleDateString()}
                   />
                 </ListItem>
               </List>

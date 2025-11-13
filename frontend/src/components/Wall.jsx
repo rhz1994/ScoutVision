@@ -151,7 +151,7 @@ function Wall() {
                   </ListItem>
                 </List>
                 <Typography>{post.free_text}</Typography>
-                <Typography>
+                <Typography sx={{ fontSize: "0.8em", fontWeight: "bold" }}>
                   {new Date(post.created_at).toLocaleDateString()}
                 </Typography>
               </Card>

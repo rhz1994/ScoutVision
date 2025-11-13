@@ -9,14 +9,14 @@ function ImportantLinks() {
     <Card sx={{ p: 2, mt: 5 }}>
       <CardContent>
         <Typography variant="h5" component="h2" align="center" gutterBottom>
-          Viktiga länkar
+          Läs mer:
         </Typography>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             gap: 1,
-            alignItems: "flex-start",
+            alignItems: "center",
           }}
         >
           <Link
