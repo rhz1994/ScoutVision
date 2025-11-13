@@ -17,14 +17,12 @@ function TestResultsList() {
 
   return (
     <>
+      {error && <span>Något gick fel med att hämta datan.</span>}
       {isPending && (
         <>
-          <p>Laddar tidigare gjorda tester</p>
-          <CircularProgress color="contrast" thickness={7} size={75} />
+          <CircularProgress color="primary" thickness={5} size={50} />
         </>
       )}
-      {error && <span>Något gick fel med att hämta datan.</span>}
-
       {data && data.length > 0 && (
         <Card sx={{ mb: 4 }}>
           <CardContent

@@ -1,4 +1,4 @@
-import { useState, useContext, lazy, Suspense } from "react";
+import { useState, useContext, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 
@@ -7,10 +7,10 @@ import Typography from "@mui/material/Typography";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
-const LoginForm = lazy(() => import("../components/LoginForm"));
+import LoginForm from "../components/LoginForm";
 
 function LoginPage() {
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -24,9 +24,7 @@ function LoginPage() {
 
   return (
     <div className="login-page">
-      <Suspense fallback={<div>Laddar formulär...</div>}>
-        <LoginForm setUser={setUser} setSnackbar={setSnackbar} />
-      </Suspense>
+      <LoginForm setUser={setUser} setSnackbar={setSnackbar} />
 
       <Typography
         variant="body2"

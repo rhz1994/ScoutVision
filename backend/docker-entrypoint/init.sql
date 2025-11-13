@@ -61,8 +61,6 @@ CREATE TABLE wallPosts (
   created_at TIMESTAMP DEFAULT now()
 );
 
-CREATE INDEX users_username ON users (username);
-
 INSERT INTO testQuestion(question)
 VALUES
 ('Innehöll meddelandet en länk som du uppmanades att klicka på?'),
@@ -89,7 +87,8 @@ INSERT INTO testResults (user_id, suspect_details, result) VALUES ( 1, '077-8137
 
 INSERT INTO wallPosts (free_text, phone_number, severity) VALUES ('Svara inte på detta numret!!!', '077-8137813', 'red' ), ('Ringer hela tiden', '071-121212', 'yellow'), ('Påstår sig komma från Kivra', '08-121212', 'red'), ('Påstår sig komma från Kivra nr2', '08-121212', 'orange');
 
-EXPLAIN ANALYZE SELECT * FROM users;
+CREATE INDEX testResults_user_id ON testResults (user_id);
+
 SELECT * FROM reportedPhoneNumbers;
 SELECT * FROM reportedLinks;
 SELECT * FROM testResults;
