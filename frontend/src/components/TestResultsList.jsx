@@ -1,10 +1,11 @@
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import { Card, CardContent, CircularProgress } from "@mui/material";
+import { Card, CardContent, CardHeader, CircularProgress } from "@mui/material";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useQuery } from "@tanstack/react-query";
+import SafetyCheckIcon from "@mui/icons-material/SafetyCheck";
 
 function TestResultsList() {
   const { user } = useContext(UserContext);
@@ -27,20 +28,40 @@ function TestResultsList() {
       {data && data.length > 0 && (
         <Card sx={{ mb: 4 }}>
           <CardContent
-            sx={{ gap: 3, display: "flex", flexDirection: "column" }}
+            sx={{
+              gap: 3,
+              display: "flex",
+              flexDirection: "column",
+              padding: 4,
+            }}
           >
+            <CardHeader title="Tidigare gjorda test" />
             {data.map((result) => (
-              <List key={result.id} sx={{ borderBottom: "1px solid black" }}>
+              <List
+                key={result.id}
+                sx={{
+                  border: "1px solid grey",
+                  borderRadius: "5px",
+                  display: "flex",
+                }}
+              >
                 <ListItem>
-                  <ListItemText primary="Test id" secondary={result.result} />
-                </ListItem>
-                <ListItem>
-                  <ListItemText primary="Resultat:" secondary={result.result} />
+                  <ListItemText
+                    primary="Resultat:"
+                    secondary={`${result.result} av 15`}
+                  />
+                  {result.result < 6 ? (
+                    <SafetyCheckIcon sx={{ color: "green" }} />
+                  ) : (
+                    <SafetyCheckIcon
+                      sx={{ color: result.result > 10 ? "red" : "gold" }}
+                    />
+                  )}
                 </ListItem>
                 <ListItem>
                   <ListItemText
                     primary="Datum:"
-                    secondary={new Date(result.created_at).toLocaleDateString()}
+                    secondary={new Date(result.created_at).toLocaleString()}
                   />
                 </ListItem>
               </List>

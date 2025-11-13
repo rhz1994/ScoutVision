@@ -53,9 +53,7 @@ function CheckboxCard() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ result: testScore }),
-        })
-          .then((response) => response.json())
-          .then((result) => console.log(result));
+        });
       }
 
       navigate("/");
