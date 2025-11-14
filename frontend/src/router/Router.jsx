@@ -27,11 +27,7 @@ function Router() {
       children: [
         {
           path: "/",
-          element: (
-            <Suspense fallback={<div>Laddar...</div>}>
-              <Home />
-            </Suspense>
-          ),
+          element: <Home />,
         },
         {
           path: "/test/:question?/:number?",
@@ -43,35 +39,19 @@ function Router() {
         },
         {
           path: "/profile",
-          element: (
-            <Suspense fallback={<div>Laddar...</div>}>
-              <Profile />
-            </Suspense>
-          ),
+          element: <Profile />,
         },
         {
           path: "/login",
-          element: (
-            <Suspense fallback={<div>Laddar...</div>}>
-              <LoginPage />
-            </Suspense>
-          ),
+          element: <LoginPage />,
         },
         {
           path: "/register",
-          element: (
-            <Suspense fallback={<div>Laddar...</div>}>
-              <Register />
-            </Suspense>
-          ),
+          element: <Register />,
         },
         {
           path: "/terms-and-conditions",
-          element: (
-            <Suspense fallback={<div>Laddar...</div>}>
-              <TermsAndConditions />
-            </Suspense>
-          ),
+          element: <TermsAndConditions />,
         },
       ],
     },

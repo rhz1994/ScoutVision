@@ -23,7 +23,7 @@ function CheckboxCard() {
   const { data, isPending, error } = useQuery({
     queryKey: [endpoint],
     staleTime: 1000 * 60 * 30,
-    queryFn: () => fetch(`/api${endpoint}`).then((r) => r.json()),
+    queryFn: () => fetch(`/api${endpoint}`).then((result) => result.json()),
   });
 
   const handleChange = (event) => {
