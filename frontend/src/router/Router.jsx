@@ -6,7 +6,7 @@ const Test = lazy(() => import("../pages/Test"));
 import Profile from "../pages/Profile";
 import LoginPage from "../pages/LoginPage";
 import Register from "../pages/Register";
-import TermsAndConditions from "../pages/TermsAndConditions";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -50,8 +50,8 @@ function Router() {
           element: <Register />,
         },
         {
-          path: "/terms-and-conditions",
-          element: <TermsAndConditions />,
+          path: "/privacy-policy",
+          element: <PrivacyPolicy />,
         },
       ],
     },
