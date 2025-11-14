@@ -50,8 +50,8 @@ function Router() {
           element: <Register />,
         },
         {
-          path: "/terms-and-conditions",
-          element: <TermsAndConditions />,
+          path: "/privacy-policy",
+          element: <PrivacyPolicy />,
         },
       ],
     },
