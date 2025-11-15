@@ -7,7 +7,7 @@ import Profile from "../pages/Profile";
 import LoginPage from "../pages/LoginPage";
 import Register from "../pages/Register";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
-
+import TermsAndConditions from "../pages/TermsAndConditions";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "./Router.css";
@@ -52,6 +52,10 @@ function Router() {
         {
           path: "/privacy-policy",
           element: <PrivacyPolicy />,
+        },
+        {
+          path: "/terms-and-conditions",
+          element: <TermsAndConditions />,
         },
       ],
     },
