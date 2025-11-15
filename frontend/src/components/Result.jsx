@@ -13,10 +13,10 @@ import {
 } from "@mui/material";
 
 function Result() {
-  const { result } = useContext(ResultContext);
+  const { totalScore } = useContext(ResultContext);
 
   let content;
-  if (result <= 5) {
+  if (totalScore <= 5) {
     content = {
       style: "green",
       riskLevel: "Låg",
@@ -25,7 +25,7 @@ function Result() {
     };
   }
 
-  if (result > 5 && result <= 10) {
+  if (totalScore > 5 && totalScore <= 10) {
     content = {
       style: "gold",
       riskLevel: "Medel",
@@ -34,7 +34,7 @@ function Result() {
     };
   }
 
-  if (result > 10 && result) {
+  if (totalScore > 10 && totalScore) {
     content = {
       style: "red",
       riskLevel: "Hög",
@@ -49,7 +49,7 @@ function Result() {
       <Card sx={{ border: `1px solid black`, maxHeight: "185px" }}>
         <CardHeader title={`Resultat`} />
         <CardContent>
-          <Typography>{`${result} av 15`}</Typography>
+          <Typography>{`${totalScore} av 15`}</Typography>
         </CardContent>
         <CardActions />
       </Card>

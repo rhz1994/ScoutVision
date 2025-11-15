@@ -13,13 +13,13 @@ function Navbar() {
   // const { pathname } = useLocation();
   // const { question } = useParams();
   const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
-  const { setResult } = useContext(ResultContext);
+  const { setTotalScore } = useContext(ResultContext);
   const { setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setResult(null);
+    setTotalScore(null);
     setIsLoggedIn(false);
     navigate("/");
     setUser(null);

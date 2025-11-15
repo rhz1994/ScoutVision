@@ -8,11 +8,11 @@ import { useContext } from "react";
 import { ResultContext } from "../contexts/ResultContext";
 
 function Home() {
-  const { result } = useContext(ResultContext);
+  const { totalScore } = useContext(ResultContext);
   return (
     <>
       <Hero />
-      {result && <Result />}
+      {totalScore && <Result />}
 
       <Box
         sx={{

@@ -15,8 +15,7 @@ function CheckboxCard() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [checked, setChecked] = useState(null);
-  const { result, setResult } = useContext(ResultContext);
-  const [value, setValue] = useState(0);
+  const { result, setResult, setTotalScore } = useContext(ResultContext);
   const { user } = useContext(UserContext);
   const endpoint = pathname.split("number")[0];
 
@@ -31,21 +30,33 @@ function CheckboxCard() {
       ? setChecked(null)
       : setChecked(event.target.name);
 
-    setValue(event.target.value);
+    const updatedArray = result.filter(
+      (item) => item.question !== questionNumber
+    );
+
+    updatedArray.push({
+      question: questionNumber,
+      result: parseInt(event.target.value),
+    });
+
+    setResult(updatedArray);
   };
 
   const questionNumber = parseInt(pathname.split("=")[1]);
   const questionIndex = parseInt(pathname.split("=")[1] - 1) || 0;
 
-  function handleClick() {
-    const testScore = result + parseInt(value);
-    setResult(testScore);
+  function handleClickBack() {
+    navigate(`${endpoint}number=${questionNumber - 1}`);
+    setChecked(null);
+  }
+  function handleClickForward() {
+    navigate(`${endpoint}number=${questionNumber + 1}`);
+    setChecked(null);
 
-    if (questionNumber < 5) {
-      navigate(`${endpoint}number=${questionNumber + 1}`);
-      setChecked(null);
-    }
-    if (questionNumber > 4) {
+    if (questionNumber === 5) {
+      const testScore = result.reduce((acc, cur) => acc + cur.result, 0);
+      console.log("testScore", testScore);
+      setTotalScore(testScore);
       if (user) {
         fetch(`/api/testResult/${user.id}`, {
           method: "POST",
@@ -76,7 +87,7 @@ function CheckboxCard() {
             <p>Hämtar frågorna</p>
           </>
         )}
-        {data && (
+        {data && questionNumber && (
           <>
             <CardHeader title={data[questionIndex].question} />
             <FormControl
@@ -123,23 +134,49 @@ function CheckboxCard() {
                   />
                 ))}
               </FormGroup>
-
-              <Button
-                onClick={handleClick}
-                disabled={!checked}
-                variant="contained"
-                color="contrast"
-                size="medium"
-                sx={{
-                  ":hover": { bgcolor: "contrast.light" },
-                  fontWeight: 600,
-                  padding: "10px",
-                  flexGrow: "auto",
-                  minWidth: "125px",
+              <section
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-around",
                 }}
               >
-                Nästa
-              </Button>
+                {questionNumber && (
+                  <Button
+                    onClick={handleClickBack}
+                    disabled={questionNumber === 1}
+                    variant="contained"
+                    color="contrast"
+                    size="medium"
+                    sx={{
+                      ":hover": { bgcolor: "contrast.light" },
+                      fontWeight: 600,
+                      padding: "10px",
+                      flexGrow: "auto",
+                      minWidth: "125px",
+                    }}
+                  >
+                    Föregående
+                  </Button>
+                )}
+
+                <Button
+                  onClick={handleClickForward}
+                  disabled={!checked}
+                  variant="contained"
+                  color="contrast"
+                  size="medium"
+                  sx={{
+                    ":hover": { bgcolor: "contrast.light" },
+                    fontWeight: 600,
+                    padding: "10px",
+                    flexGrow: "auto",
+                    minWidth: "125px",
+                  }}
+                >
+                  Nästa
+                </Button>
+              </section>
             </FormControl>
           </>
         )}

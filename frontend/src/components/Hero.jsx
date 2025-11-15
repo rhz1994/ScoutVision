@@ -8,10 +8,10 @@ import { ResultContext } from "../contexts/ResultContext";
 
 function Hero() {
   const navigate = useNavigate();
-  const { result, setResult } = useContext(ResultContext);
+  const { totalScore, setTotalScore } = useContext(ResultContext);
 
   function handleClick() {
-    setResult(null);
+    setTotalScore(null);
     navigate("/test");
   }
 
@@ -42,7 +42,7 @@ function Hero() {
             padding: "15px",
           }}
         >
-          {result > 0 ? "Testa igen" : "Starta test"}
+          {totalScore > 0 ? "Testa igen" : "Starta test"}
         </Button>
       </div>
     </section>
