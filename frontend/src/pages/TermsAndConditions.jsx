@@ -20,61 +20,80 @@ function TermsAndConditions() {
             sx={{ gap: 3, display: "flex", flexDirection: "column" }}
           >
             <Typography variant="h2" component="div">
-              Integritetspolicy
+              Användarvillkor
             </Typography>
+
             <Typography variant="body1" component="div">
-              Vi behöver spara och behandla personuppgifter om dig, så som
-              användarnamn. Syftet med en sådan behandling är för att kunna
-              spara resultat från gjorda tester.
-            </Typography>
-            <Typography variant="body1" component="div">
-              Vi har fått dina uppgifter då du skapade ett konto hos oss. Detta
-              är ett krav för att kunna logga in och spara resultat från gjorda
-              tester. Vi tillämpar vid var tid gällande integritetslagstiftning
-              vid all behandling av personuppgifter. Den rättsliga grunden för
-              att behandla dina personuppgifter är samtycke. Du har när som
-              helst rätt att återkalla ditt samtycke till behandlingen. Ett
-              återkallande påverkar inte lagligheten av behandlingen innan
-              samtycket återkallades. Dina uppgifter kommer att sparas tills
-              dess att Trygghetskollen läggs ned senast den 30 november 2025.
-            </Typography>
-            <Typography variant="body1" component="div">
-              De personuppgifter vi behandlar om dig delas med
-              personuppgiftsansvariga. Vi kan även komma att dela dina
-              personuppgifter med en tredje part, förutsatt att vi är skyldiga
-              att göra så enligt lag. Däremot kommer vi aldrig att överföra dina
-              uppgifter till ett land utanför EU.
-            </Typography>
-            <Typography variant="body1" component="div">
-              Du har rätt att kontakta oss om du vill ha ut information om de
-              uppgifter vi har om dig, för att begära rättelse, överföring eller
-              för att begära att vi begränsar behandlingen, för att göra
-              invändningar eller begära radering av dina uppgifter.
+              Dessa användarvillkor gäller för användning av Trygghetskollen.
+              Genom att använda tjänsten godkänner du villkoren. Vi kan
+              uppdatera villkoren när som helst, och fortsatt användning innebär
+              att du accepterar ändringarna.
             </Typography>
 
             <Typography variant="h5" component="div">
-              Kontakt
+              Syfte med tjänsten
             </Typography>
             <Typography variant="body1" component="div">
-              Dataskyddsombud: rasmus.hanzen@iths.se
-            </Typography>
-            <Typography variant="body1" component="div">
-              Personuppgiftsansvarig: richard.mattsson@iths.se
-            </Typography>
-
-            <Typography variant="h5" component="div">
-              Rapportering av misstänkta bedrägerier
-            </Typography>
-            <Typography variant="body1" component="div">
-              På vår webbplats kan du rapportera misstänkta bedrägerier och
-              lämna information såsom telefonnummer. Vi använder och visar upp
-              dessa uppgifter för att varna andra användare och förebygga
+              Trygghetskollen låter användare söka efter telefonnummer, länkar
+              och namn för att se om bedrägeriförsök rapporterats, samt skicka
+              in egna rapporter. Tjänsten får endast användas för att förebygga
               bedrägerier.
             </Typography>
+
+            <Typography variant="h5" component="div">
+              Personuppgifter
+            </Typography>
             <Typography variant="body1" component="div">
-              Endast relevant information publiceras, och vi hanterar den enligt
-              GDPR. Personer vars uppgifter publiceras kan när som helst
-              kontakta oss för att få dem borttagna.
+              Vid registrering sparar vi den information du lämnar för att kunna
+              hantera konto och visa dina rapporter. All behandling av
+              personuppgifter sker enligt vår Integritetspolicy och gällande lag
+              (GDPR).
+            </Typography>
+
+            <Typography variant="h5" component="div">
+              Ditt ansvar
+            </Typography>
+            <Typography variant="body1" component="div">
+              Du ansvarar för att uppgifterna du lämnar är korrekta och att du
+              inte rapporterar falsk, vilseledande eller kränkande information.
+              Tjänsten får inte användas för trakasserier, bakgrundskontroller,
+              diskriminering eller andra olagliga syften. Missbruk kan leda till
+              avstängning.
+            </Typography>
+
+            <Typography variant="h5" component="div">
+              Ändringar och drift
+            </Typography>
+            <Typography variant="body1" component="div">
+              Vi kan när som helst ändra, begränsa eller avsluta funktioner i
+              tjänsten. Vi ansvarar inte för tekniska fel, driftstörningar eller
+              eventuella konsekvenser av felaktig användarinformation.
+            </Typography>
+
+            <Typography variant="h5" component="div">
+              Användargenererat innehåll
+            </Typography>
+            <Typography variant="body1" component="div">
+              När du skickar in en rapport ger du Trygghetskollen rätt att
+              lagra, visa och använda informationen för att informera andra
+              användare och förebygga bedrägerier.
+            </Typography>
+
+            <Typography variant="h5" component="div">
+              Tvister
+            </Typography>
+            <Typography variant="body1" component="div">
+              Vid tvist rekommenderar vi att du kontaktar oss via våra
+              kontaktuppgifter. Om du inte accepterar villkoren är ditt enda
+              alternativ att sluta använda tjänsten.
+            </Typography>
+
+            <Typography variant="h5" component="div">
+              Brott mot villkoren
+            </Typography>
+            <Typography variant="body1" component="div">
+              Vid överträdelse av villkoren kan din rätt att använda
+              Trygghetskollen omedelbart avslutas.
             </Typography>
           </CardContent>
         </Card>

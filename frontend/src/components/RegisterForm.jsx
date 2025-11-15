@@ -132,7 +132,7 @@ function RegisterForm({ setSnackbar }) {
                 <>
                   Jag godkänner
                   <a
-                    href="/privcy-policy"
+                    href="/terms-and-conditions"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ textDecoration: "none", color: "#1976d2" }}

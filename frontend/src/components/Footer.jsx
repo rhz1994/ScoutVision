@@ -8,9 +8,19 @@ function Footer() {
           <Link
             className="secondary-color"
             style={{ textDecoration: "none" }}
-            to={"terms-and-conditions"}
+            to={"privacy-policy"}
+            sx={{ mr: 2 }}
           >
             Integritetspolicy
+          </Link>
+        </li>
+        <li>
+          <Link
+            className="secondary-color"
+            style={{ textDecoration: "none" }}
+            to={"terms-and-conditions"}
+          >
+            Användarvillkor
           </Link>
         </li>
       </ul>
