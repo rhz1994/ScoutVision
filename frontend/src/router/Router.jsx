@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { createHashRouter, Outlet, RouterProvider } from "react-router-dom";
 import { lazyWithPreload } from "react-lazy-with-preload";
+import "./Router.css";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
